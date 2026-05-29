@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth *)",
+      "Bash(git config *)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -fsSL https://cli.github.com/install.sh)",
+      "Bash(sh)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -L https://github.com/cli/cli/releases/download/v2.50.0/gh_2.50.0_macOS_arm64.tar.gz -o gh.tar.gz)",
+      "Bash(tar xzf *)",
+      "Bash(sudo mv gh_2.50.0_macOS_arm64/bin/gh /usr/local/bin/)",
+      "Bash(gh --version)",
+      "Bash(curl -L https://github.com/cli/cli/releases/download/v2.54.0/gh_2.54.0_macOS_arm64.zip -o gh.zip)",
+      "Bash(unzip -q gh.zip)",
+      "Bash(sudo mv /tmp/gh_2.54.0_macOS_arm64/bin/gh /usr/local/bin/)",
+      "Bash(mkdir -p ~/.local/bin)",
+      "Bash(cp /tmp/gh_2.54.0_macOS_arm64/bin/gh ~/.local/bin/)",
+      "Bash(~/.local/bin/gh --version)"
+    ]
+  }
+}

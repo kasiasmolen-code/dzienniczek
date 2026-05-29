@@ -1,8 +1,26 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useEntries } from '@/lib/entries-context'
+import { EntryForm } from '@/components/EntryForm'
+import type { Mood } from '@/lib/types'
+
 export default function NewEntry() {
+  const router = useRouter()
+  const { addEntry } = useEntries()
+
+  function handleSave(data: { title: string; content: string; mood: Mood; tags: string[] }) {
+    const id = addEntry(data)
+    router.push(`/${id}`)
+  }
+
   return (
-    <main className="min-h-screen bg-background p-6">
-      <h1 className="text-3xl font-black text-foreground">Nowy wpis</h1>
-      <p className="text-muted mt-2">— Phase 2</p>
+    <main className="min-h-screen bg-background px-6 max-w-sm mx-auto">
+      <EntryForm
+        heading="Nowy wpis"
+        onSave={handleSave}
+        onCancel={() => router.back()}
+      />
     </main>
-  );
+  )
 }
