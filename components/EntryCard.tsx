@@ -25,13 +25,13 @@ export function EntryCard({ entry, index }: Props) {
   return (
     <div
       onClick={() => router.push(`/${entry.id}`)}
-      className={`${style.bg} p-6 rounded-3xl cursor-pointer active:scale-95 transition-transform`}
+      className={`${style.bg} p-6 rounded-3xl cursor-pointer active:scale-95 md:hover:scale-[1.02] transition-transform`}
     >
       <div className="flex justify-between items-start mb-1 gap-3">
         <h2 className={`text-xl font-bold ${style.text} leading-tight`}>
           {entry.title}
         </h2>
-        <span className="text-2xl shrink-0">{moodEmoji(entry.mood)}</span>
+        {entry.mood && <span className="text-2xl shrink-0">{moodEmoji(entry.mood)}</span>}
       </div>
       <p className={`text-sm mb-3 ${style.sub}`}>{formatRelative(entry.createdAt)}</p>
       <p className={`text-sm leading-relaxed line-clamp-2 ${style.text} opacity-90`}>

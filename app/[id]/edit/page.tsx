@@ -27,7 +27,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
   }
 
   return (
-    <main className="min-h-screen bg-background px-6 max-w-sm mx-auto">
+    <main className="min-h-screen bg-background px-6 md:px-8 max-w-2xl mx-auto">
       <EntryForm
         heading="Edytuj wpis"
         initial={entry}

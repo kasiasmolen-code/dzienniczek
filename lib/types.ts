@@ -4,7 +4,7 @@ export interface Entry {
   id: string
   title: string
   content: string
-  mood: Mood
+  mood: Mood | null
   tags: string[]
   createdAt: string
   updatedAt: string

@@ -9,10 +9,10 @@ export default function Home() {
   const { entries } = useEntries()
 
   return (
-    <main className="min-h-screen bg-background p-6 flex flex-col gap-6 max-w-sm mx-auto">
+    <main className="min-h-screen bg-background p-6 md:p-8 lg:p-12 flex flex-col gap-6 max-w-4xl mx-auto">
       <div className="pt-8">
-        <h1 className="text-5xl font-black text-foreground leading-tight">
-          Dzien<br />niczek
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground leading-tight whitespace-nowrap">
+          Dzienniczek
         </h1>
         <p className="text-muted text-sm mt-1">
           {entries.length === 0
@@ -28,7 +28,7 @@ export default function Home() {
           <p className="text-muted text-sm">Kliknij + żeby dodać pierwszy wpis</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {entries.map((entry, i) => (
             <EntryCard key={entry.id} entry={entry} index={i} />
           ))}

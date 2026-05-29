@@ -8,7 +8,7 @@ import { TagInput } from './TagInput'
 interface FormData {
   title: string
   content: string
-  mood: Mood
+  mood: Mood | null
   tags: string[]
 }
 
@@ -22,7 +22,7 @@ interface Props {
 export function EntryForm({ heading, initial, onSave, onCancel }: Props) {
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
-  const [mood, setMood] = useState<Mood>(initial?.mood ?? 'neutral')
+  const [mood, setMood] = useState<Mood | null>(initial?.mood ?? null)
   const [tags, setTags] = useState<string[]>(initial?.tags ?? [])
 
   function handleSubmit(e: FormEvent) {

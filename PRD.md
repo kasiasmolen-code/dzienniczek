@@ -15,13 +15,16 @@ Tworzymy mobilną i desktopową aplikację do notatek - dzienniczek, która umo�
 ### Funkcjonalności Kluczowe:
 - ✅ Tworzenie nowego wpisu (tytuł + treść)
 - ✅ Automatyczne zapisanie daty i godziny wpisu
-- ✅ Wskaźnik nastroju (mood selector)
+- ✅ Wskaźnik nastroju (mood selector) — opcjonalny, można pominąć przy tworzeniu/edycji wpisu
 - ✅ Tagi do kategoryzacji wpisów
 - ✅ Przeglądanie listy wszystkich wpisów
 - ✅ Edycja istniejącego wpisu
 - ✅ Usuwanie wpisu
 - ✅ Dark mode (domyślnie)
-- ✅ Responsywny design (mobile-first, skalowanie na desktop)
+- ✅ Responsywny design (mobile-first, skalowanie na desktop):
+  - Mobile (<768px): layout kolumnowy, max-w-sm
+  - Tablet (md ≥768px): poszerzony kontener max-w-2xl, 2 kolumny kart
+  - Desktop (lg ≥1024px): kontener max-w-4xl, 3 kolumny kart
 
 ### Funkcjonalności na Później:
 - 🔄 Autentykacja użytkownika (login/rejestracja)
@@ -48,13 +51,13 @@ Inspirujemy się projektem z dołączonej referencji:
 ### Flow 1: Tworzenie Wpisu
 ```
 Home screen → [Button] Nowy wpis → New Entry screen →
-Tytuł + Treść + Mood + Tagi → [Save] → Home screen (wpis na liście)
+Tytuł + Treść + Mood (opcjonalnie) + Tagi → [Save] → Home screen (wpis na liście)
 ```
 
 ### Flow 2: Edycja Wpisu
 ```
 Home screen → [Klik na wpis] → Entry Details →
-[Edit button] → Edit Entry screen → Zmiana danych → [Save] → Home screen
+[Edit button] → Edit Entry screen → Zmiana danych → [Save] → Entry Details
 ```
 
 ### Flow 3: Usuwanie Wpisu
@@ -67,7 +70,7 @@ Entry Details → [Delete button] → Potwierdzenie → Usunięcie → Home scre
 | Ekran | Opis |
 |-------|------|
 | **Home (Lista wpisów)** | Paginowana/scrollowana lista wpisów z preview'em, data, mood |
-| **New Entry** | Tworzenie nowego wpisu (tytuł, treść, mood, tagi) |
+| **New Entry** | Tworzenie nowego wpisu (tytuł, treść, mood opcjonalnie, tagi) |
 | **Entry Details** | Pełny widok wpisu z opcjami edycji i usuwania |
 | **Edit Entry** | Edycja istniejącego wpisu |
 
@@ -111,17 +114,19 @@ Light mode:
 | Buttons | Pill-style, zaokrąglone, wyraźny shadow |
 | Cards (Entry) | rounded-2xl/3xl, padding, lekki shadow |
 | Input/Textarea | Zaokrąglone, jasne tło w dark mode |
-| Mood Selector | Emoji picker — 5 stanów nastroju |
+| Mood Selector | Emoji picker — 5 stanów nastroju (opcjonalny, można odznaczyć przez ponowne kliknięcie) |
 | Tag Input | Dynamiczne dodawanie tagów jako małe pile |
 
 ### Nastroje (Mood)
+Kolejność w UI: od najgorszego (lewo) do najlepszego (prawo).
+
 | Emoji | Label |
 |-------|-------|
-| 😄 | Świetnie |
-| 🙂 | Dobrze |
-| 😐 | Neutralnie |
-| 😔 | Słabo |
 | 😢 | Źle |
+| 😔 | Słabo |
+| 😐 | Neutralnie |
+| 🙂 | Dobrze |
+| 😄 | Świetnie |
 
 ## Architektura Komponentów
 
@@ -167,20 +172,20 @@ Piszę testy automatyczne przy użyciu **Jest + React Testing Library**:
 
 ## Roadmap
 
-### Phase 1: Setup & Design ← jesteśmy tutaj
+### Phase 1: Setup & Design
 - [x] Stworzenie PRD
-- [ ] Inicjalizacja projektu Next.js
-- [ ] Setup Tailwind CSS + shadcn/ui + Poppins
-- [ ] Setup dark mode
+- [x] Inicjalizacja projektu Next.js
+- [x] Setup Tailwind CSS + shadcn/ui + Poppins
+- [x] Setup dark mode
 
 ### Phase 2: Frontend (Mock Data)
-- [ ] Layout i nawigacja
-- [ ] Home screen z mock'owanymi danymi
-- [ ] New Entry screen
-- [ ] Entry Details screen
-- [ ] Edit Entry screen
+- [x] Layout i nawigacja
+- [x] Home screen z mock'owanymi danymi
+- [x] New Entry screen
+- [x] Entry Details screen
+- [x] Edit Entry screen
 
-### Phase 3: Dane Lokalne
+### Phase 3: Dane Lokalne ← jesteśmy tutaj
 - [ ] Persystencja w localStorage (tymczasowe)
 - [ ] Pełny CRUD na wpisach
 
