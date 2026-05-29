@@ -7,7 +7,7 @@ import { mockEntries } from './mock-data'
 interface EntryData {
   title: string
   content: string
-  mood: Mood
+  mood: Mood | null
   tags: string[]
 }
 

@@ -21,7 +21,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
     )
   }
 
-  function handleSave(data: { title: string; content: string; mood: Mood; tags: string[] }) {
+  function handleSave(data: { title: string; content: string; mood: Mood | null; tags: string[] }) {
     updateEntry(id, data)
     router.push(`/${id}`)
   }
