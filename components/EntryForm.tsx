@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 import type { Mood, Entry } from '@/lib/types'
 import { MoodSelector } from './MoodSelector'
 import { TagInput } from './TagInput'
@@ -17,15 +17,32 @@ interface FormData {
 interface Props {
   heading: string
   initial?: Partial<Entry>
-  onSave: (data: FormData) => void
+  onSave: (data: FormData) => void | Promise<void>
   onCancel: () => void
+  autoSave?: boolean
+  focusTitle?: boolean
 }
 
-export function EntryForm({ heading, initial, onSave, onCancel }: Props) {
+export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusTitle }: Props) {
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
   const [mood, setMood] = useState<Mood | null>(initial?.mood ?? null)
   const [tags, setTags] = useState<string[]>(initial?.tags ?? [])
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isSavingRef = useRef(false)
+
+  useEffect(() => {
+    if (!autoSave || !title.trim()) return
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+    saveTimerRef.current = setTimeout(async () => {
+      if (isSavingRef.current) return
+      isSavingRef.current = true
+      await onSave({ title, content, mood, tags })
+      isSavingRef.current = false
+    }, 600)
+    return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, content, mood, tags, autoSave])
 
   const { state: recorderState, error: recorderError, start, stop, reset } = useVoiceRecorder(
     (text) => setContent(prev => prev ? prev + ' ' + text : text)
@@ -39,23 +56,26 @@ export function EntryForm({ heading, initial, onSave, onCancel }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6 pt-8 pb-10">
-      {/* Nawigacja */}
-      <div className="flex items-center justify-between">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="text-muted hover:text-foreground transition-colors text-sm px-2 py-1 -ml-2"
-        >
-          ← Wróć
-        </button>
-        <h1 className="text-base font-bold text-foreground">{heading}</h1>
-        <button
-          type="submit"
-          className="bg-foreground text-background px-5 py-2 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity"
-        >
-          Zapisz
-        </button>
-      </div>
+      {/* Nawigacja — tylko na mobile lub gdy nie autoSave */}
+      {!autoSave && (
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="lg:hidden text-muted hover:text-foreground transition-colors text-sm px-2 py-1 -ml-2"
+          >
+            ← Wróć
+          </button>
+          <div className="hidden lg:block" />
+          <h1 className="text-base font-bold text-foreground">{heading}</h1>
+          <button
+            type="submit"
+            className="bg-foreground text-background px-5 py-2 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity"
+          >
+            Zapisz
+          </button>
+        </div>
+      )}
 
       {/* Tytuł */}
       <input
@@ -63,7 +83,7 @@ export function EntryForm({ heading, initial, onSave, onCancel }: Props) {
         value={title}
         onChange={e => setTitle(e.target.value)}
         placeholder="Tytuł wpisu..."
-        required
+        autoFocus={focusTitle}
         className="text-2xl font-bold bg-transparent text-foreground placeholder:text-muted outline-none border-b border-foreground/10 pb-3"
       />
 

@@ -9,8 +9,8 @@ export default function NewEntry() {
   const router = useRouter()
   const { addEntry } = useEntries()
 
-  function handleSave(data: { title: string; content: string; mood: Mood | null; tags: string[] }) {
-    const id = addEntry(data)
+  async function handleSave(data: { title: string; content: string; mood: Mood | null; tags: string[] }) {
+    const id = await addEntry(data)
     router.push('/')
   }
 

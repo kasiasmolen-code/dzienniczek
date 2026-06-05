@@ -16,7 +16,14 @@
       "Bash(sudo mv /tmp/gh_2.54.0_macOS_arm64/bin/gh /usr/local/bin/)",
       "Bash(mkdir -p ~/.local/bin)",
       "Bash(cp /tmp/gh_2.54.0_macOS_arm64/bin/gh ~/.local/bin/)",
-      "Bash(~/.local/bin/gh --version)"
-    ]
+      "Bash(~/.local/bin/gh --version)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm --version)"
+    ],
+    "defaultMode": "auto"
   }
 }

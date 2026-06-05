@@ -1,8 +1,9 @@
 'use client'
 
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Entry, Mood } from './types'
-import { mockEntries } from './mock-data'
+import { supabase } from './supabase'
+import { useAuth } from './auth-context'
 
 interface EntryData {
   title: string
@@ -13,31 +14,60 @@ interface EntryData {
 
 interface EntriesContextType {
   entries: Entry[]
-  addEntry: (data: EntryData) => string
-  updateEntry: (id: string, data: EntryData) => void
-  deleteEntry: (id: string) => void
+  loading: boolean
+  addEntry: (data: EntryData) => Promise<string>
+  updateEntry: (id: string, data: EntryData) => Promise<void>
+  deleteEntry: (id: string) => Promise<void>
   getEntry: (id: string) => Entry | undefined
 }
 
 const EntriesContext = createContext<EntriesContextType | null>(null)
 
 export function EntriesProvider({ children }: { children: ReactNode }) {
-  const [entries, setEntries] = useState<Entry[]>(mockEntries)
+  const { user } = useAuth()
+  const [entries, setEntries] = useState<Entry[]>([])
+  const [loading, setLoading] = useState(false)
 
-  function addEntry(data: EntryData): string {
-    const id = Date.now().toString()
-    const now = new Date().toISOString()
-    setEntries(prev => [{ ...data, id, createdAt: now, updatedAt: now }, ...prev])
-    return id
+  useEffect(() => {
+    if (!user) {
+      setEntries([])
+      return
+    }
+    setLoading(true)
+    supabase
+      .from('entries')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => {
+        setEntries(data ?? [])
+        setLoading(false)
+      })
+  }, [user])
+
+  async function addEntry(data: EntryData): Promise<string> {
+    const { data: inserted } = await supabase
+      .from('entries')
+      .insert({ ...data, user_id: user!.id })
+      .select()
+      .single()
+    setEntries(prev => [inserted, ...prev])
+    return inserted.id
   }
 
-  function updateEntry(id: string, data: EntryData) {
-    setEntries(prev =>
-      prev.map(e => e.id === id ? { ...e, ...data, updatedAt: new Date().toISOString() } : e)
-    )
+  async function updateEntry(id: string, data: EntryData) {
+    const { data: updated } = await supabase
+      .from('entries')
+      .update(data)
+      .eq('id', id)
+      .eq('user_id', user!.id)
+      .select()
+      .single()
+    setEntries(prev => prev.map(e => e.id === id ? updated : e))
   }
 
-  function deleteEntry(id: string) {
+  async function deleteEntry(id: string) {
+    await supabase.from('entries').delete().eq('id', id).eq('user_id', user!.id)
     setEntries(prev => prev.filter(e => e.id !== id))
   }
 
@@ -46,7 +76,7 @@ export function EntriesProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <EntriesContext.Provider value={{ entries, addEntry, updateEntry, deleteEntry, getEntry }}>
+    <EntriesContext.Provider value={{ entries, loading, addEntry, updateEntry, deleteEntry, getEntry }}>
       {children}
     </EntriesContext.Provider>
   )

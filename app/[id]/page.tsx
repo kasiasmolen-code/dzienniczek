@@ -3,15 +3,23 @@
 import { use, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useEntries } from '@/lib/entries-context'
+import { useConversations } from '@/lib/conversations-context'
 import { moodEmoji } from '@/components/MoodSelector'
 import { DeleteConfirm } from '@/components/DeleteConfirm'
 import { formatDate } from '@/lib/utils'
+import { Brain } from 'lucide-react'
 
 export default function EntryDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const router = useRouter()
   const { getEntry, deleteEntry } = useEntries()
+  const { createConversation } = useConversations()
   const [showDelete, setShowDelete] = useState(false)
+
+  async function handleAskFreud() {
+    const convId = await createConversation(id)
+    router.push(`/freud?conv=${convId}&entry=${id}`)
+  }
 
   const entry = getEntry(id)
 
@@ -40,6 +48,12 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
         </button>
         <div className="flex gap-2">
           <button
+            onClick={handleAskFreud}
+            className="px-4 py-2 rounded-full border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-1.5"
+          >
+            <Brain className="w-3.5 h-3.5" /> Freud
+          </button>
+          <button
             onClick={() => router.push(`/${id}/edit`)}
             className="px-4 py-2 rounded-full border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/5 transition-colors"
           >
@@ -63,7 +77,7 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
       </div>
 
       <p className="text-sm text-muted mb-8">
-        {formatDate(entry.createdAt)}
+        {formatDate(entry.created_at)}
       </p>
 
       {/* Treść */}

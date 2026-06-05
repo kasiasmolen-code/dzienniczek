@@ -108,6 +108,23 @@ Light mode:
   Button:       oklch(14.7% 0.004 49.25)
 ```
 
+### Ikony
+
+**Biblioteka:** [Heroicons](https://heroicons.com/) — oficjalna biblioteka ikon Tailwind CSS  
+**Instalacja:** `@heroicons/react` (pakiet npm, importowane jako komponenty React)
+
+**Zasady użycia:**
+- **Outline** — wariant domyślny dla większości ikon (lżejszy wygląd, pasuje do minimalistycznego designu)
+- **Solid** — dla stanów aktywnych/wybranych (np. aktywna zakładka, wypełniony przycisk)
+- Rozmiar standardowy: `w-5 h-5` (20px) lub `w-6 h-6` (24px) w zależności od kontekstu
+
+**Import:**
+```tsx
+import { PencilIcon } from '@heroicons/react/24/outline'   // domyślnie outline
+import { PencilIcon } from '@heroicons/react/24/solid'     // stan aktywny
+import { PencilIcon } from '@heroicons/react/20/solid'     // mini (wewnątrz tekstu)
+```
+
 ### Komponenty UI
 | Komponent | Styl |
 |-----------|------|
