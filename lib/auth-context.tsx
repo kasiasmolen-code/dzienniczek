@@ -9,6 +9,7 @@ interface AuthContextType {
   loading: boolean
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string, password: string) => Promise<string | null>
+  signUpWithEmail: (email: string, password: string) => Promise<string | null>
   signOut: () => Promise<void>
 }
 
@@ -49,12 +50,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return error?.message ?? null
   }
 
+  async function signUpWithEmail(email: string, password: string): Promise<string | null> {
+    if (!email.includes('@')) {
+      return 'Niepoprawny email'
+    }
+    if (password.length < 8) {
+      return 'Hasło musi mieć min. 8 znaków'
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailConfirmationRequired: false,
+      },
+    })
+    return error?.message ?? null
+  }
+
   async function signOut() {
     await supabase.auth.signOut()
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signInWithEmail, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, signOut }}>
       {children}
     </AuthContext.Provider>
   )

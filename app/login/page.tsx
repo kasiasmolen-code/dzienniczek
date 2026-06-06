@@ -5,22 +5,25 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function LoginPage() {
-  const { user, loading, signInWithGoogle, signInWithEmail } = useAuth()
+  const { user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(false)
 
   useEffect(() => {
     if (!loading && user) router.replace('/')
   }, [user, loading, router])
 
-  async function handleEmailLogin(e: React.FormEvent) {
+  async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault()
     setSubmitting(true)
     setError(null)
-    const err = await signInWithEmail(email, password)
+    const err = isSignUp
+      ? await signUpWithEmail(email, password)
+      : await signInWithEmail(email, password)
     if (err) setError(err)
     setSubmitting(false)
   }
@@ -51,7 +54,38 @@ export default function LoginPage() {
         <div className="flex-1 h-px bg-foreground/15" />
       </div>
 
-      <form onSubmit={handleEmailLogin} className="flex flex-col gap-3 w-full max-w-xs">
+      <form onSubmit={handleEmailAuth} className="flex flex-col gap-3 w-full max-w-xs">
+        <div className="flex gap-2 bg-foreground/5 rounded-lg p-1">
+          <button
+            type="button"
+            onClick={() => {
+              setIsSignUp(false)
+              setError(null)
+            }}
+            className={`flex-1 py-2 rounded-md text-xs font-medium transition-colors ${
+              !isSignUp
+                ? 'bg-foreground/10 text-foreground'
+                : 'text-muted hover:text-foreground/70'
+            }`}
+          >
+            Zaloguj się
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsSignUp(true)
+              setError(null)
+            }}
+            className={`flex-1 py-2 rounded-md text-xs font-medium transition-colors ${
+              isSignUp
+                ? 'bg-foreground/10 text-foreground'
+                : 'text-muted hover:text-foreground/70'
+            }`}
+          >
+            Zarejestruj się
+          </button>
+        </div>
+
         <input
           type="email"
           placeholder="Email"
@@ -74,7 +108,13 @@ export default function LoginPage() {
           disabled={submitting}
           className="bg-foreground/10 text-foreground rounded-xl px-4 py-3 text-sm font-semibold hover:bg-foreground/15 transition-colors disabled:opacity-50"
         >
-          {submitting ? 'Logowanie…' : 'Zaloguj się'}
+          {submitting
+            ? isSignUp
+              ? 'Rejestracja…'
+              : 'Logowanie…'
+            : isSignUp
+              ? 'Zarejestruj się'
+              : 'Zaloguj się'}
         </button>
       </form>
     </main>
