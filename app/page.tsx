@@ -1,47 +1,26 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Brain } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Home, BookOpen, LogOut, Plus } from 'lucide-react'
+import { useEffect } from 'react'
 import { useAuth } from '@/lib/auth-context'
 import { useEntries } from '@/lib/entries-context'
 import { EntryCard } from '@/components/EntryCard'
-import { EntrySidebar } from '@/components/EntrySidebar'
-import { EntryForm } from '@/components/EntryForm'
-import type { Mood } from '@/lib/types'
 
-export default function Home() {
+export default function HomePage() {
   const router = useRouter()
   const { user, loading: authLoading, signOut } = useAuth()
-  const { entries, loading, addEntry, updateEntry } = useEntries()
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [isNew, setIsNew] = useState(false)
+  const { entries, loading, addEntry } = useEntries()
 
   useEffect(() => {
     if (!authLoading && !user) router.replace('/login')
   }, [user, authLoading, router])
 
-  // Auto-select most recent entry on load
-  useEffect(() => {
-    if (!loading && entries.length > 0 && selectedId === null) {
-      setSelectedId(entries[0].id)
-    }
-  }, [loading, entries, selectedId])
-
   if (authLoading || !user) return null
-
-  const selectedEntry = selectedId ? entries.find(e => e.id === selectedId) : null
 
   async function handleNewEntry() {
     const id = await addEntry({ title: 'Nowa notatka', content: '', mood: null, tags: [] })
-    setSelectedId(id)
-    setIsNew(true)
-  }
-
-  async function handleSaveEdit(data: { title: string; content: string; mood: Mood | null; tags: string[] }) {
-    if (!selectedId) return
-    await updateEntry(selectedId, { ...data, title: data.title || 'Nowa notatka' })
-    if (data.title) setIsNew(false)
+    router.push(`/${id}`)
   }
 
   const entryCount = entries.length
@@ -89,66 +68,70 @@ export default function Home() {
 
       {/* ── DESKTOP layout (≥ lg) ── */}
       <div className="hidden lg:flex h-screen bg-background overflow-hidden">
-        {/* Left panel — entry list */}
-        <div className="w-[22%] min-w-[220px] max-w-[320px] flex flex-col border-r border-foreground/10 h-full">
-          {/* Header */}
-          <div className="px-4 pt-6 pb-4 border-b border-foreground/10 flex items-start justify-between shrink-0">
-            <div>
-              <h1 className="text-xl font-black text-foreground leading-tight">Dzienniczek</h1>
-              <p className="text-muted text-xs mt-0.5">{countLabel}</p>
-            </div>
+
+        {/* ── Left sidebar ── */}
+        <aside className="w-60 shrink-0 flex flex-col border-r border-foreground/10 h-full px-4 py-6">
+          {/* App name */}
+          <div className="mb-6 px-1">
+            <h1 className="text-lg font-black text-foreground leading-tight">Dzienniczek</h1>
+            <p className="text-muted text-xs mt-0.5">{countLabel}</p>
+          </div>
+
+          {/* New entry — big bar */}
+          <button
+            onClick={handleNewEntry}
+            className="flex items-center justify-center gap-2 w-full py-3 mb-6 bg-foreground text-background rounded-xl text-sm font-semibold hover:opacity-85 transition-opacity"
+          >
+            <Plus className="w-4 h-4" />
+            Nowy wpis
+          </button>
+
+          {/* Nav links */}
+          <nav className="flex flex-col gap-1">
+            <button
+              onClick={() => router.push('/')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground bg-foreground/8 hover:bg-foreground/10 transition-colors text-left"
+            >
+              <Home className="w-4 h-4 shrink-0" />
+              Home
+            </button>
+          </nav>
+
+          {/* Bottom section */}
+          <div className="mt-auto flex flex-col gap-1">
+            <button
+              onClick={() => router.push('/docs')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
+            >
+              <BookOpen className="w-4 h-4 shrink-0" />
+              API Docs
+            </button>
             <button
               onClick={signOut}
-              className="text-xs text-muted hover:text-foreground transition-colors mt-1"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
             >
+              <LogOut className="w-4 h-4 shrink-0" />
               Wyloguj
             </button>
           </div>
+        </aside>
 
-          {/* New entry button */}
-          <button
-            onClick={handleNewEntry}
-            className="mx-3 mt-3 mb-1 py-2 bg-foreground text-background rounded-full text-sm font-semibold hover:opacity-80 transition-opacity shrink-0"
-          >
-            + Nowy wpis
-          </button>
-
-          {/* Freud button */}
-          <button
-            onClick={() => router.push('/freud')}
-            className="mx-3 mb-3 py-2 border border-foreground/20 text-foreground rounded-full text-sm font-semibold hover:bg-foreground/5 transition-colors shrink-0 flex items-center justify-center gap-2"
-          >
-            <Brain className="w-4 h-4" /> Freud
-          </button>
-
-          {/* Entries list */}
-          <div className="flex-1 overflow-hidden">
-            <EntrySidebar
-              entries={entries}
-              selectedId={selectedId}
-              onSelect={setSelectedId}
-            />
-          </div>
-        </div>
-
-        {/* Right panel — editor */}
-        <div className="flex-1 overflow-y-auto px-10 max-w-3xl">
-          {selectedEntry ? (
-            <EntryForm
-              key={selectedEntry.id}
-              heading={selectedEntry.title}
-              initial={isNew ? { ...selectedEntry, title: '' } : selectedEntry}
-              onSave={handleSaveEdit}
-              onCancel={() => { setSelectedId(null); setIsNew(false) }}
-              autoSave
-              focusTitle={isNew}
-            />
-          ) : entries.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-muted text-sm">
-              Kliknij „+ Nowy wpis" żeby zacząć
+        {/* ── Main content — entry cards grid ── */}
+        <main className="flex-1 overflow-y-auto p-8">
+          {loading ? null : entries.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center gap-3">
+              <span className="text-5xl">📝</span>
+              <p className="text-foreground font-semibold">Brak wpisów</p>
+              <p className="text-muted text-sm">Kliknij „Nowy wpis" żeby zacząć</p>
             </div>
-          ) : null}
-        </div>
+          ) : (
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 max-w-5xl">
+              {entries.map((entry, i) => (
+                <EntryCard key={entry.id} entry={entry} index={i} />
+              ))}
+            </div>
+          )}
+        </main>
       </div>
     </>
   )

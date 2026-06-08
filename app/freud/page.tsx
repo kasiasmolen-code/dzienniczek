@@ -117,8 +117,8 @@ export default function FreudPage() {
         <div className="w-[22%] min-w-[220px] max-w-[320px] flex flex-col border-r border-foreground/10 h-full">
           <div className="px-4 pt-6 pb-4 border-b border-foreground/10 flex items-center justify-between shrink-0">
             <div>
-              <button onClick={() => router.push('/')} className="text-xs text-muted hover:text-foreground transition-colors mb-1 flex items-center gap-1">
-                <ChevronLeft className="w-3 h-3" /> Wpisy
+              <button onClick={() => router.push('/')} className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors mb-2">
+                <ChevronLeft className="w-4 h-4" /> Wstecz
               </button>
               <h1 className="text-xl font-black text-foreground">🧠 Freud</h1>
             </div>

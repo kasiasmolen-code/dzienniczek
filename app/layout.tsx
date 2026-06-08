@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/lib/auth-context";
 import { EntriesProvider } from "@/lib/entries-context";
 import { ConversationsProvider } from "@/lib/conversations-context";
-import { BottomNav } from "@/components/BottomNav";
+import { BottomNav } from "@/components/BottomNav"
+import { FreudFloating } from "@/components/FreudFloating";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="pl" className={cn("dark", poppins.variable, "font-sans", geist.variable)} suppressHydrationWarning>
       <body className="min-h-screen antialiased" suppressHydrationWarning>
-        <AuthProvider><EntriesProvider><ConversationsProvider>{children}<BottomNav /></ConversationsProvider></EntriesProvider></AuthProvider>
+        <AuthProvider><EntriesProvider><ConversationsProvider>{children}<BottomNav /><FreudFloating /></ConversationsProvider></EntriesProvider></AuthProvider>
       </body>
     </html>
   );

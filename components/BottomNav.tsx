@@ -1,21 +1,42 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { HomeIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, PlusIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 import { Brain } from 'lucide-react'
+import { useConversations } from '@/lib/conversations-context'
+
+const EXCLUDED_PATHS = ['/login', '/freud', '/docs', '/new']
+
+function getEntryIdFromPath(pathname: string): string | null {
+  if (pathname === '/') return null
+  if (EXCLUDED_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))) return null
+  const match = pathname.match(/^\/([^/]+)/)
+  return match ? match[1] : null
+}
 
 export function BottomNav() {
   const router = useRouter()
   const pathname = usePathname()
+  const { createConversation } = useConversations()
 
   if (pathname === '/login' || pathname.startsWith('/freud')) return null
 
   const isHome = pathname === '/'
-  const isFreud = pathname === '/freud'
+  const isDocs = pathname === '/docs'
+  const entryId = getEntryIdFromPath(pathname)
+
+  async function handleFreudPress() {
+    if (entryId) {
+      const convId = await createConversation(entryId)
+      router.push(`/freud?conv=${convId}&entry=${entryId}`)
+    } else {
+      router.push('/freud')
+    }
+  }
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 flex items-center justify-between px-5 pb-6 pt-3 pointer-events-none z-50">
-      {/* Pill: Home + Plus — h-14 to match FAB */}
+      {/* Pill: Home + Plus + Docs */}
       <div className="pointer-events-auto flex items-center h-14 bg-foreground/90 backdrop-blur-sm rounded-full px-2 shadow-xl">
         <button
           onClick={() => router.push('/')}
@@ -36,16 +57,24 @@ export function BottomNav() {
         >
           <PlusIcon className="w-6 h-6" />
         </button>
+
+        <div className="w-px h-5 bg-background/20 mx-1" />
+
+        <button
+          onClick={() => router.push('/docs')}
+          className={`flex items-center justify-center w-14 h-10 rounded-full transition-colors ${
+            isDocs ? 'bg-white/20' : 'text-background/50 hover:text-background/70'
+          } text-background`}
+          aria-label="Dokumentacja API"
+        >
+          <BookOpenIcon className="w-6 h-6" />
+        </button>
       </div>
 
-      {/* FAB: Freud — h-14 w-14 */}
+      {/* FAB: Freud */}
       <button
-        onClick={() => router.push('/freud')}
-        className={`pointer-events-auto w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${
-          isFreud
-            ? 'bg-foreground text-background ring-2 ring-white/30'
-            : 'bg-foreground/90 backdrop-blur-sm text-background'
-        }`}
+        onClick={handleFreudPress}
+        className="pointer-events-auto w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-105 active:scale-95 bg-foreground/90 backdrop-blur-sm text-background"
         aria-label="Freud"
       >
         <Brain className="w-6 h-6" />
