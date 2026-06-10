@@ -8,12 +8,24 @@ const MOOD_PL: Record<string, string> = {
   terrible: 'bardzo zły',
 }
 
-export function buildSystemPrompt(entries: Entry[], activeEntry?: Entry | null): string {
+function formatDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+function moodPL(mood: string | null | undefined): string {
+  return mood ? (MOOD_PL[mood] ?? mood) : 'nieokreślony'
+}
+
+export function buildSystemPrompt(
+  entries: Entry[],
+  activeEntry?: Entry | null,
+  relevantEntries?: Entry[]
+): string {
   const summary = entries
     .slice(0, 50)
     .map(e => {
       const date = new Date(e.created_at).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })
-      const mood = e.mood ? MOOD_PL[e.mood] : 'nieznany'
+      const mood = moodPL(e.mood)
       return `- ${date}: "${e.title}" (nastrój: ${mood})`
     })
     .join('\n')
@@ -21,11 +33,18 @@ export function buildSystemPrompt(entries: Entry[], activeEntry?: Entry | null):
   const activeSection = activeEntry
     ? `\nAktualnie otwarty wpis użytkownika (przeanalizuj go szczególnie uważnie):
 Data: ${new Date(activeEntry.created_at).toLocaleDateString('pl-PL', { dateStyle: 'long' })}
-Nastrój: ${activeEntry.mood ? MOOD_PL[activeEntry.mood] : 'nieokreślony'}
+Nastrój: ${moodPL(activeEntry.mood)}
 Tytuł: ${activeEntry.title}
 Treść:
 ${activeEntry.content || '(brak treści)'}
 ${activeEntry.tags.length > 0 ? `Tagi: ${activeEntry.tags.map(t => '#' + t).join(', ')}` : ''}`
+    : ''
+
+  const relevantSection = relevantEntries?.length
+    ? `\nWpisy najbardziej powiązane z aktualnym pytaniem użytkownika (wyszukiwanie semantyczne — przeczytaj uważnie i nawiązuj do nich w odpowiedzi):
+${relevantEntries.map(e => `---
+Data: ${formatDate(e.created_at)} | Nastrój: ${moodPL(e.mood)} | Tytuł: ${e.title}
+${e.tags.length > 0 ? `Tagi: ${e.tags.map(t => '#' + t).join(', ')}\n` : ''}${e.content || '(brak treści)'}`).join('\n')}`
     : ''
 
   return `Jesteś Freudem — empatycznym asystentem terapeutycznym wbudowanym w dziennik osobisty użytkownika.
@@ -41,7 +60,7 @@ Twoje zasady:
 
 Historia wpisów użytkownika (skrót ostatnich 50):
 ${summary || 'Brak wpisów w historii.'}
-${activeSection}
+${activeSection}${relevantSection}
 
 Przy pierwszej wiadomości w rozmowie: przywitaj się ciepło i nawiąż do ostatnich wpisów lub aktualnie otwartego wpisu. Zadaj jedno otwarte pytanie.`
 }

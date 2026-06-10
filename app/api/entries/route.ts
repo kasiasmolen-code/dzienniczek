@@ -5,7 +5,8 @@
 
 import { verifyAuth, handleApiError, validateBody, validateQuery } from '@/lib/api/middleware'
 import { createEntrySchema, listEntriesSchema } from '@/lib/api/validators'
-import { createEntry, getUserEntries } from '@/lib/api/supabase-server'
+import { createEntry, getUserEntries, updateEntryEmbedding } from '@/lib/api/supabase-server'
+import { generateEmbedding, buildEmbeddingText } from '@/lib/api/embeddings'
 import { ApiResponse } from '@/lib/api/types'
 import { Entry } from '@/lib/api/types'
 
@@ -16,6 +17,11 @@ export async function POST(req: Request) {
     const validated = await validateBody(req, createEntrySchema)
 
     const entry = await createEntry(userId, validated)
+
+    // Generate and store embedding asynchronously (don't block response)
+    generateEmbedding(buildEmbeddingText(entry))
+      .then((embedding) => updateEntryEmbedding(entry.id, embedding))
+      .catch((err) => console.error('[embedding] failed for entry', entry.id, err))
 
     return Response.json(
       { data: entry } as ApiResponse<Entry>,

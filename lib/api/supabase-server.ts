@@ -40,6 +40,7 @@ export async function createEntry(
     date?: string
     mood?: Mood | null
     tags?: string[]
+    image_url?: string | null
   }
 ): Promise<Entry> {
   const admin = getSupabaseAdmin() as any
@@ -56,6 +57,7 @@ export async function createEntry(
       updated_at: now,
       mood: data.mood || null,
       tags: data.tags || [],
+      image_url: data.image_url || null,
     })
     .select()
     .single()
@@ -269,6 +271,43 @@ export async function saveMessage(
 
   if (error) throw error
   return data
+}
+
+/**
+ * Hybrid search entries using pgvector + full-text search (RRF fusion)
+ */
+export async function hybridSearchEntries(
+  userId: string,
+  queryEmbedding: number[],
+  queryText: string,
+  limit = 15
+): Promise<Entry[]> {
+  const admin = getSupabaseAdmin() as any
+
+  const { data, error } = await admin.rpc('hybrid_search_entries', {
+    p_user_id: userId,
+    p_query_embedding: queryEmbedding,
+    p_query_text: queryText,
+    p_limit: limit,
+  })
+
+  if (error) throw error
+  return (data || []) as Entry[]
+}
+
+/**
+ * Update embedding for an entry
+ */
+export async function updateEntryEmbedding(
+  entryId: string,
+  embedding: number[]
+): Promise<void> {
+  const admin = getSupabaseAdmin() as any
+  const { error } = await admin
+    .from('entries')
+    .update({ embedding })
+    .eq('id', entryId)
+  if (error) throw error
 }
 
 /**

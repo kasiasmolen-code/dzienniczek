@@ -10,6 +10,7 @@ interface EntryData {
   content: string
   mood: Mood | null
   tags: string[]
+  image_url?: string | null
 }
 
 interface EntriesContextType {

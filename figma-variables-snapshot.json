@@ -1,0 +1,775 @@
+{
+  "_meta": {
+    "source": "Figma MCP (search_design_system) + eksport tokenów Mode 1.tokens.json",
+    "figmaFileUrl": "https://www.figma.com/design/ZcP3u9vSI9pkj3tNhFL70X/",
+    "figmaFileKey": "ZcP3u9vSI9pkj3tNhFL70X",
+    "capturedAt": "2026-06-09",
+    "collectionsSummary": {
+      "semanticColors": 54,
+      "brandColors": 28,
+      "typography": 58,
+      "borderRadii": 10,
+      "spacing": 27,
+      "chartColors": 11,
+      "shadows": 51,
+      "rawColors": 244,
+      "borderRadiiAbsolute": 10,
+      "spacingAbsolute": 37,
+      "alpha": 34,
+      "notes": "border radii (10) i spacing (27) to tokeny semantyczne/relatywne. border radii (absolute) (10) i spacing (absolute) (37) to tokeny prymitywne z wartościami px."
+    },
+    "relationships": "semantic colors → odnosi się do raw colors. border radii (semantic) → odnosi się do border radii (absolute) przez token `radius`. spacing (semantic) → odnosi się do spacing (absolute). alpha → nakłada przezroczystość na white/black.",
+    "dataSourceNotes": {
+      "confirmedViaScreenshot": ["border radii (absolute) — pełne wartości px"],
+      "confirmedViaMCPSearch": ["semantic colors", "alpha", "shadows", "chart colors", "border radii/radius token", "raw colors"],
+      "confirmedViaTokensExport": ["raw colors — pełne wartości hex"],
+      "notYetCaptured": ["brand colors (28)", "typography (58)", "spacing (27 semantic)", "spacing (absolute) (37)"]
+    }
+  },
+
+  "primaryLibrary": {
+    "name": "Obra shadcn/ui kit community edition (1.6.0) (Community)",
+    "libraryKey": "lk-13c15e997bc672efc11c127a0a8cd616fa4f776a1f0bf4139197f4f385ed18b77b3331daa13f0be7ef7ba2d4255c87e77336df6eb4e7fa6b313a649f1793b8a7"
+  },
+  "addedLibraries": [
+    {
+      "name": "TM Tech - PC Colors",
+      "libraryKey": "lk-fd9bce71bdb57a40337e3f26ff19efc7f540ba4ba9c536c161602bf81c346578416a58ef2978e9aaa0f5e27f86ee4a96774095284f00dbb320eed4e09528223f",
+      "source": "team"
+    }
+  ],
+
+  "variableCollections": {
+
+    "raw_colors": {
+      "collectionName": "raw colors",
+      "description": "Prymitywna paleta kolorów — pełna skala Tailwind CSS v3 (50–950) dla każdego odcienia. Eksportowane jako Mode 1.tokens.json. Semantic colors odwołują się do tych wartości.",
+      "tokenCount": 244,
+      "exportedFile": "Mode 1.tokens.json",
+      "palette": {
+        "white":   "#FFFFFF",
+        "black":   "#000000",
+        "neutral": {
+          "50": "#FAFAFA", "100": "#F5F5F5", "200": "#E5E5E5", "300": "#D4D4D4",
+          "400": "#A3A3A3", "500": "#737373", "600": "#525252", "700": "#404040",
+          "800": "#262626", "900": "#171717", "950": "#0A0A0A"
+        },
+        "slate": {
+          "50": "#F8FAFC", "100": "#F1F5F9", "200": "#E2E8F0", "300": "#CBD5E1",
+          "400": "#94A3B8", "500": "#64748B", "600": "#475569", "700": "#334155",
+          "800": "#1E293B", "900": "#0F172A", "950": "#020617"
+        },
+        "gray": {
+          "50": "#F9FAFB", "100": "#F3F4F6", "200": "#E5E7EB", "300": "#D1D5DB",
+          "400": "#9CA3AF", "500": "#6B7280", "600": "#4B5563", "700": "#374151",
+          "800": "#1F2937", "900": "#111827", "950": "#030712"
+        },
+        "zinc": {
+          "50": "#FAFAFA", "100": "#F4F4F5", "200": "#E4E4E7", "300": "#D4D4D8",
+          "400": "#A1A1AA", "500": "#71717A", "600": "#52525B", "700": "#3F3F46",
+          "800": "#27272A", "900": "#18181B", "950": "#09090B"
+        },
+        "stone": {
+          "50": "#FAFAF9", "100": "#F5F5F4", "200": "#E7E5E4", "300": "#D6D3D1",
+          "400": "#A8A29E", "500": "#78716C", "600": "#57534E", "700": "#44403C",
+          "800": "#292524", "900": "#1C1917", "950": "#0C0A09"
+        },
+        "red": {
+          "50": "#FEF2F2", "100": "#FFE2E2", "200": "#FECACA", "300": "#FCA5A5",
+          "400": "#F87171", "500": "#EF4444", "600": "#DC2626", "700": "#B91C1C",
+          "800": "#991B1B", "900": "#7F1D1D", "950": "#450A0A"
+        },
+        "orange": {
+          "50": "#FFF7ED", "100": "#FFEDD5", "200": "#FED7AA", "300": "#FDBA74",
+          "400": "#FB923C", "500": "#F97316", "600": "#EA580C", "700": "#C2410C",
+          "800": "#9A3412", "900": "#7C2D12", "950": "#431407"
+        },
+        "amber": {
+          "50": "#FFFBEB", "100": "#FEF3C7", "200": "#FDE68A", "300": "#FCD34D",
+          "400": "#FBBF24", "500": "#F59E0B", "600": "#D97706", "700": "#B45309",
+          "800": "#92400E", "900": "#78350F", "950": "#451A03"
+        },
+        "yellow": {
+          "50": "#FEFCE8", "100": "#FEF9C3", "200": "#FEF08A", "300": "#FDE047",
+          "400": "#FACC15", "500": "#EAB308", "600": "#CA8A04", "700": "#A16207",
+          "800": "#854D0E", "900": "#713F12", "950": "#422006"
+        },
+        "lime": {
+          "50": "#F7FEE7", "100": "#ECFCCB", "200": "#D9F99D", "300": "#BEF264",
+          "400": "#A3E635", "500": "#84CC16", "600": "#65A30D", "700": "#4D7C0F",
+          "800": "#3F6212", "900": "#365314", "950": "#1A2E05"
+        },
+        "green": {
+          "50": "#F0FDF4", "100": "#DCFCE7", "200": "#BBF7D0", "300": "#86EFAC",
+          "400": "#4ADE80", "500": "#22C55E", "600": "#16A34A", "700": "#15803D",
+          "800": "#166534", "900": "#14532D", "950": "#052E16"
+        },
+        "emerald": {
+          "50": "#ECFDF5", "100": "#D1FAE5", "200": "#A7F3D0", "300": "#6EE7B7",
+          "400": "#34D399", "500": "#10B981", "600": "#059669", "700": "#047857",
+          "800": "#065F46", "900": "#064E3B", "950": "#022C22"
+        },
+        "teal": {
+          "50": "#F0FDFA", "100": "#CCFBF1", "200": "#99F6E4", "300": "#5EEAD4",
+          "400": "#2DD4BF", "500": "#14B8A6", "600": "#0D9488", "700": "#0F766E",
+          "800": "#115E59", "900": "#134E4A", "950": "#042F2E"
+        },
+        "cyan": {
+          "50": "#ECFEFF", "100": "#CFFAFE", "200": "#A5F3FC", "300": "#67E8F9",
+          "400": "#22D3EE", "500": "#06B6D4", "600": "#0891B2", "700": "#0E7490",
+          "800": "#155E75", "900": "#164E63", "950": "#083344"
+        },
+        "sky": {
+          "50": "#F0F9FF", "100": "#E0F2FE", "200": "#BAE6FD", "300": "#7DD3FC",
+          "400": "#38BDF8", "500": "#0EA5E9", "600": "#0284C7", "700": "#0369A1",
+          "800": "#075985", "900": "#0C4A6E", "950": "#082F49"
+        },
+        "blue": {
+          "50": "#EFF6FF", "100": "#DBEAFE", "200": "#BFDBFE", "300": "#93C5FD",
+          "400": "#60A5FA", "500": "#3B82F6", "600": "#2563EB", "700": "#1D4ED8",
+          "800": "#1E40AF", "900": "#1E3A8A", "950": "#172554"
+        },
+        "indigo": {
+          "50": "#EEF2FF", "100": "#E0E7FF", "200": "#C7D2FE", "300": "#A5B4FC",
+          "400": "#818CF8", "500": "#6366F1", "600": "#4F46E5", "700": "#4338CA",
+          "800": "#3730A3", "900": "#312E81", "950": "#1E1B4B"
+        },
+        "violet": {
+          "50": "#F5F3FF", "100": "#EDE9FE", "200": "#DDD6FE", "300": "#C4B5FD",
+          "400": "#A78BFA", "500": "#8B5CF6", "600": "#7C3AED", "700": "#6D28D9",
+          "800": "#5B21B6", "900": "#4C1D95", "950": "#2E1065"
+        },
+        "purple": {
+          "50": "#FAF5FF", "100": "#F3E8FF", "200": "#E9D5FF", "300": "#D8B4FE",
+          "400": "#C084FC", "500": "#A855F7", "600": "#9333EA", "700": "#7E22CE",
+          "800": "#6B21A8", "900": "#581C87", "950": "#3B0764"
+        },
+        "fuchsia": {
+          "50": "#FDF4FF", "100": "#FAE8FF", "200": "#F5D0FE", "300": "#F0ABFC",
+          "400": "#E879F9", "500": "#D946EF", "600": "#C026D3", "700": "#A21CAF",
+          "800": "#86198F", "900": "#701A75", "950": "#4A044E"
+        },
+        "pink": {
+          "50": "#FDF2F8", "100": "#FCE7F3", "200": "#FBCFE8", "300": "#F9A8D4",
+          "400": "#F472B6", "500": "#EC4899", "600": "#DB2777", "700": "#BE185D",
+          "800": "#9D174D", "900": "#831843", "950": "#500724"
+        },
+        "rose": {
+          "50": "#FFF1F2", "100": "#FFE4E6", "200": "#FECDD3", "300": "#FDA4AF",
+          "400": "#FB7185", "500": "#F43F5E", "600": "#E11D48", "700": "#BE123C",
+          "800": "#9F1239", "900": "#881337", "950": "#4C0519"
+        }
+      }
+    },
+
+    "border_radii_absolute": {
+      "collectionName": "border radii (absolute)",
+      "description": "10 prymitywnych tokenów z wartościami px. Są źródłem prawdy dla zaokrągleń — tokeny semantyczne (border radii) i komponenty odwołują się do tych wartości. Potwierdzone ze screenshota Figma (kolumna 'shadcn').",
+      "tokenCount": 10,
+      "variableType": "FLOAT",
+      "scopes": ["CORNER_RADIUS"],
+      "tokens": [
+        { "name": "radius-2",        "value_px": 2    },
+        { "name": "radius-4",        "value_px": 4    },
+        { "name": "radius-6",        "value_px": 6    },
+        { "name": "radius-8",        "value_px": 8    },
+        { "name": "radius-10",       "value_px": 10   },
+        { "name": "radius-12",       "value_px": 12   },
+        { "name": "radius-16",       "value_px": 16   },
+        { "name": "radius-24",       "value_px": 24   },
+        { "name": "radius-32",       "value_px": 32   },
+        { "name": "radius-infinite", "value_px": 9999 }
+      ],
+      "dataSource": "screenshot — Figma Variables panel, kolekcja 'border radii (absolute)', tryb 'shadcn'"
+    },
+
+    "border_radii_relative": {
+      "collectionName": "border radii",
+      "variableSetKey": "124622548bf591543dda4674f6d9cee7515d2775",
+      "description": "10 semantycznych tokenów zaokrągleń — każdy jest aliasem wskazującym dokładnie na jeden token z border_radii_absolute. Token `radius` to główny punkt konfiguracyjny — w trybie 'shadcn' domyślnie wskazuje na radius-10 (10px). Potwierdzone z eksportu shadcn.tokens.json.",
+      "tokenCount": 10,
+      "dataSource": "shadcn.tokens.json — eksport z Figma, tryb 'shadcn'",
+      "tokens": [
+        {
+          "name": "rounded-none",
+          "figmaVariableId": "VariableID:844:1251290",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 0,
+          "referencesAbsolute": null,
+          "note": "Jedyny token bez aliasu — bezpośrednia wartość 0 (brak zaokrąglenia)"
+        },
+        {
+          "name": "rounded-xs",
+          "figmaVariableId": "VariableID:843:105987",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 2,
+          "referencesAbsolute": "radius-2"
+        },
+        {
+          "name": "rounded-sm",
+          "figmaVariableId": "VariableID:843:168381",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 4,
+          "referencesAbsolute": "radius-4"
+        },
+        {
+          "name": "rounded-md",
+          "figmaVariableId": "VariableID:843:105990",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 6,
+          "referencesAbsolute": "radius-6"
+        },
+        {
+          "name": "rounded-lg",
+          "figmaVariableId": "VariableID:843:105988",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 8,
+          "referencesAbsolute": "radius-8"
+        },
+        {
+          "name": "radius",
+          "figmaVariableId": "VariableID:1252:94709",
+          "key": "43c4a5aab51f2b9a24dda9975bb45676d3463ad9",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 10,
+          "referencesAbsolute": "radius-10",
+          "cssVar": "--radius",
+          "note": "Główny token konfiguracyjny shadcn/ui. Domyślna wartość to 10px (nie 8px). Zmiana go w Figma przebudowuje cały system zaokrągleń."
+        },
+        {
+          "name": "rounded-xl",
+          "figmaVariableId": "VariableID:843:105989",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 12,
+          "referencesAbsolute": "radius-12"
+        },
+        {
+          "name": "rounded-2xl",
+          "figmaVariableId": "VariableID:845:1251293",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 16,
+          "referencesAbsolute": "radius-16"
+        },
+        {
+          "name": "rounded-3xl",
+          "figmaVariableId": "VariableID:845:1251294",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 24,
+          "referencesAbsolute": "radius-24"
+        },
+        {
+          "name": "rounded-full",
+          "figmaVariableId": "VariableID:843:168382",
+          "variableType": "FLOAT",
+          "scopes": ["CORNER_RADIUS"],
+          "value_px": 9999,
+          "referencesAbsolute": "radius-infinite"
+        }
+      ]
+    },
+
+    "spacing_absolute": {
+      "collectionName": "spacing (absolute)",
+      "description": "37 prymitywnych tokenów z wartościami px. Nazwy odpowiadają jednostkom rem Tailwind CSS (×4px = wartość px). Wszystkie ukryte przed publishingiem (hiddenFromPublishing: true) — przeznaczone tylko jako źródło dla tokenów semantycznych. Potwierdzone z eksportu shadcn.tokens.json.",
+      "tokenCount": 37,
+      "variableType": "FLOAT",
+      "scopes": ["WIDTH_HEIGHT", "GAP"],
+      "hiddenFromPublishing": true,
+      "namingConvention": "Tailwind rem units: nazwa × 4 = wartość px (np. '4' → 16px, '8' → 32px)",
+      "dataSource": "shadcn.tokens.json — eksport z Figma, tryb 'shadcn'",
+      "tokens": [
+        { "name": "0",       "tailwind_unit": 0,     "value_px": 0    },
+        { "name": "0,5",     "tailwind_unit": 0.5,   "value_px": 2    },
+        { "name": "0,75",    "tailwind_unit": 0.75,  "value_px": 3    },
+        { "name": "1",       "tailwind_unit": 1,     "value_px": 4    },
+        { "name": "1,25",    "tailwind_unit": 1.25,  "value_px": 5    },
+        { "name": "1,5",     "tailwind_unit": 1.5,   "value_px": 6    },
+        { "name": "2",       "tailwind_unit": 2,     "value_px": 8    },
+        { "name": "2,5",     "tailwind_unit": 2.5,   "value_px": 10   },
+        { "name": "3",       "tailwind_unit": 3,     "value_px": 12   },
+        { "name": "3,5",     "tailwind_unit": 3.5,   "value_px": 14   },
+        { "name": "4",       "tailwind_unit": 4,     "value_px": 16   },
+        { "name": "5",       "tailwind_unit": 5,     "value_px": 20   },
+        { "name": "6",       "tailwind_unit": 6,     "value_px": 24   },
+        { "name": "7",       "tailwind_unit": 7,     "value_px": 28   },
+        { "name": "8",       "tailwind_unit": 8,     "value_px": 32   },
+        { "name": "9",       "tailwind_unit": 9,     "value_px": 36   },
+        { "name": "10",      "tailwind_unit": 10,    "value_px": 40   },
+        { "name": "11",      "tailwind_unit": 11,    "value_px": 44   },
+        { "name": "12",      "tailwind_unit": 12,    "value_px": 48   },
+        { "name": "14",      "tailwind_unit": 14,    "value_px": 56   },
+        { "name": "16",      "tailwind_unit": 16,    "value_px": 64   },
+        { "name": "20",      "tailwind_unit": 20,    "value_px": 80   },
+        { "name": "24",      "tailwind_unit": 24,    "value_px": 96   },
+        { "name": "28",      "tailwind_unit": 28,    "value_px": 112  },
+        { "name": "32",      "tailwind_unit": 32,    "value_px": 128  },
+        { "name": "36",      "tailwind_unit": 36,    "value_px": 144  },
+        { "name": "40",      "tailwind_unit": 40,    "value_px": 160  },
+        { "name": "44",      "tailwind_unit": 44,    "value_px": 176  },
+        { "name": "48",      "tailwind_unit": 48,    "value_px": 192  },
+        { "name": "52",      "tailwind_unit": 52,    "value_px": 208  },
+        { "name": "56",      "tailwind_unit": 56,    "value_px": 224  },
+        { "name": "60",      "tailwind_unit": 60,    "value_px": 240  },
+        { "name": "64",      "tailwind_unit": 64,    "value_px": 256  },
+        { "name": "72",      "tailwind_unit": 72,    "value_px": 288  },
+        { "name": "80",      "tailwind_unit": 80,    "value_px": 320  },
+        { "name": "96",      "tailwind_unit": 96,    "value_px": 384  },
+        { "name": "infinite","tailwind_unit": null,  "value_px": 9999 }
+      ]
+    },
+
+    "spacing_semantic": {
+      "collectionName": "spacing",
+      "description": "27 semantycznych tokenów odstępów — aliasy do spacing (absolute). Podzielone na główną skalę t-shirt (3xs…10xl = 16 tokenów) oraz grupę 'hacks to fit scale' (11 tokenów dla wartości niezgodnych ze standardową skalą ×4). Potwierdzone z eksportu 'shadcn.tokens spacing.json'.",
+      "tokenCount": 27,
+      "variableType": "FLOAT",
+      "scopes": ["WIDTH_HEIGHT", "GAP"],
+      "dataSource": "shadcn.tokens spacing.json — eksport z Figma, tryb 'shadcn'",
+      "groups": {
+        "t_shirt_scale": {
+          "description": "Główna skala semantyczna — 16 tokenów od 3xs do 10xl. Każdy jest aliasem wskazującym na token spacing (absolute).",
+          "tokens": [
+            { "name": "3xs",  "figmaVariableId": "VariableID:596:42582",  "value_px": 2,   "referencesAbsolute": "0,5"  },
+            { "name": "2xs",  "figmaVariableId": "VariableID:596:42583",  "value_px": 4,   "referencesAbsolute": "1"    },
+            { "name": "xs",   "figmaVariableId": "VariableID:596:42585",  "value_px": 8,   "referencesAbsolute": "2"    },
+            { "name": "sm",   "figmaVariableId": "VariableID:1252:94705", "value_px": 12,  "referencesAbsolute": "3"    },
+            { "name": "md",   "figmaVariableId": "VariableID:596:42589",  "value_px": 16,  "referencesAbsolute": "4"    },
+            { "name": "lg",   "figmaVariableId": "VariableID:596:42590",  "value_px": 20,  "referencesAbsolute": "5"    },
+            { "name": "xl",   "figmaVariableId": "VariableID:596:42591",  "value_px": 24,  "referencesAbsolute": "6"    },
+            { "name": "2xl",  "figmaVariableId": "VariableID:596:42593",  "value_px": 32,  "referencesAbsolute": "8"    },
+            { "name": "3xl",  "figmaVariableId": "VariableID:596:42595",  "value_px": 40,  "referencesAbsolute": "10"   },
+            { "name": "4xl",  "figmaVariableId": "VariableID:596:42597",  "value_px": 48,  "referencesAbsolute": "12"   },
+            { "name": "5xl",  "figmaVariableId": "VariableID:596:42599",  "value_px": 64,  "referencesAbsolute": "16"   },
+            { "name": "6xl",  "figmaVariableId": "VariableID:1797:2974",  "value_px": 80,  "referencesAbsolute": "20"   },
+            { "name": "7xl",  "figmaVariableId": "VariableID:1797:2975",  "value_px": 96,  "referencesAbsolute": "24"   },
+            { "name": "8xl",  "figmaVariableId": "VariableID:1797:2976",  "value_px": 112, "referencesAbsolute": "28"   },
+            { "name": "9xl",  "figmaVariableId": "VariableID:1797:2977",  "value_px": 128, "referencesAbsolute": "32"   },
+            { "name": "10xl", "figmaVariableId": "VariableID:1797:2978",  "value_px": 144, "referencesAbsolute": "36"   }
+          ]
+        },
+        "hacks_to_fit_scale": {
+          "description": "11 dodatkowych tokenów dla wartości, które nie pasują do standardowej skalii ×4. Używane w komponentach wymagających precyzyjnych odstępów (np. 3px, 6px, 7px, ułamkowe). Nie mają aliasData — wartości bezpośrednie.",
+          "tokens": [
+            { "name": "hacks to fit scale/3",    "figmaVariableId": "VariableID:1255:182626", "value_px": 3    },
+            { "name": "hacks to fit scale/6",    "figmaVariableId": "VariableID:1255:172194", "value_px": 6    },
+            { "name": "hacks to fit scale/7",    "figmaVariableId": "VariableID:1255:190127", "value_px": 7    },
+            { "name": "hacks to fit scale/9",    "figmaVariableId": "VariableID:1707:2067",   "value_px": 9    },
+            { "name": "hacks to fit scale/10",   "figmaVariableId": "VariableID:1255:171941", "value_px": 10   },
+            { "name": "hacks to fit scale/14",   "figmaVariableId": "VariableID:1703:23515",  "value_px": 14   },
+            { "name": "hacks to fit scale/5p5",  "figmaVariableId": "VariableID:1255:182628", "value_px": 5.5  },
+            { "name": "hacks to fit scale/7p5",  "figmaVariableId": "VariableID:1255:182629", "value_px": 7.5  },
+            { "name": "hacks to fit scale/8p5",  "figmaVariableId": "VariableID:1255:182630", "value_px": 8.5  },
+            { "name": "hacks to fit scale/9p5",  "figmaVariableId": "VariableID:1255:190126", "value_px": 9.5  },
+            { "name": "hacks to fit scale/15p5", "figmaVariableId": "VariableID:1255:182631", "value_px": 15.5 }
+          ]
+        }
+      },
+      "gaps_in_scale": {
+        "description": "Tokeny absolutne, na które nie ma aliasu semantycznego (nie są używane w skali t-shirt): 0,75, 1,25, 1,5, 2,5, 3,5, 7, 9, 11, 14, 40–96 (poza 40). Te wartości są dostępne przez 'hacks' lub bezpośrednio z absolutes.",
+        "unusedBySemanticScale": ["0", "0,75", "1,25", "1,5", "2,5", "3,5", "7", "9", "11", "14", "40", "44", "48", "52", "56", "60", "64", "72", "80", "96", "infinite"]
+      }
+    },
+
+    "alpha": {
+      "collectionName": "alpha",
+      "variableSetKey": "23952f53e232a821ee206c0f7d463b1dc6ec3dcb",
+      "variableType": "COLOR",
+      "description": "34 tokeny — kolory white i black z różnymi poziomami przezroczystości (alpha). Używane do nakładek, tła modal, hover states itp.",
+      "tokenCount": 34,
+      "groups": {
+        "white": {
+          "description": "Biały z przezroczystością — do nakładek na ciemnym tle, glass effects",
+          "tokens": [
+            { "name": "white/alpha-0",  "key": "0396704eac4fd764841feeb9c72bebd306fa54fb", "alpha": 0.00 },
+            { "name": "white/alpha-5",  "key": "efd6f56c98e0a614f22c5e2a3686713ef18b3ee0", "alpha": 0.05 },
+            { "name": "white/alpha-10", "key": "c80e6f0d545f48b124036acb1df90b160405471b", "alpha": 0.10 },
+            { "name": "white/alpha-15", "key": "6c39139ff1b6157763c1e8e99983af135dc8f19a", "alpha": 0.15 },
+            { "name": "white/alpha-20", "key": "448085e118707f4f601c333c4fb1bb449c731537", "alpha": 0.20 },
+            { "name": "white/alpha-30", "key": "99b89bb7266412536207580cec47bdc60b2dccde", "alpha": 0.30 },
+            { "name": "white/alpha-40", "key": "ad034e52a9040ecfb0556402d5e2eeb014be5c05", "alpha": 0.40 },
+            { "name": "white/alpha-70", "key": "b63925be5b2f74c05111be4b65fbed23a26def72", "alpha": 0.70 },
+            { "name": "white/alpha-80", "key": "bf11549ed873c04088bc2f7f2a372cffe6140887", "alpha": 0.80 },
+            { "name": "white/alpha-95", "key": "1b1286d1a64bc828155c6803c7973ac2c2d63ee5", "alpha": 0.95 }
+          ]
+        },
+        "black": {
+          "description": "Czarny z przezroczystością — do nakładek na jasnym tle, shadows, backdrop",
+          "tokens": [
+            { "name": "black/alpha-0",  "key": "475958edba7e50686a18c824b67929eaf9658806", "alpha": 0.00 },
+            { "name": "black/alpha-5",  "key": "205d8327e5faba1c62e28a862df508c4eddbc390", "alpha": 0.05 },
+            { "name": "black/alpha-50", "key": "2c4e22e334313e12dc69c8b7002ef2e89aa55834", "alpha": 0.50 },
+            { "name": "black/alpha-70", "key": "cf08ebb19a50735bf55ff188adf11d4fcf9eeef5", "alpha": 0.70 }
+          ],
+          "note": "Prawdopodobnie istnieje pełna seria (10,15,20,30,40,60,80,90,95) — widoczne tylko częściowo przez search_design_system"
+        }
+      }
+    },
+
+    "semantic_colors": {
+      "collectionName": "semantic colors",
+      "variableSetKey": "eacfdf7c0d67bea6a22c0dd0a4a1ed62a5a9d137",
+      "variableType": "COLOR",
+      "description": "Główna warstwa semantyczna — 54 tokeny. DARK MODE JEST TUTAJ: każdy token ma dwa tryby (light i dark) przechowywane jako modes w tej samej kolekcji. Komponenty używają CSS variables, które automatycznie przełączają się między trybami.",
+      "tokenCount": 54,
+      "dark_mode_architecture": {
+        "mechanism": "Figma Variable Modes — każdy token w tej kolekcji ma wartość dla trybu 'light' i osobną wartość dla trybu 'dark'. To NIE jest osobna kolekcja.",
+        "howItWorksInCode": "CSS variable --background ma jedną wartość w :root (light) i inną w .dark { } lub [data-theme='dark']. shadcn/ui generuje obie klasy automatycznie.",
+        "dataSource": "shadcn-dark.tokens.json — eksport z Figma, tryb 'shadcn-dark'",
+        "keyInsight": "Dark mode NIE używa raw colors (Tailwind) bezpośrednio — używa kolekcji 'brand colors' z tokenami 'brand-neutrals/*'. brand-neutrals odpowiada skali neutral z raw colors (identyczne wartości hex). Tokeny interaktywne (ghost, outline, input w dark) używają kolekcji alpha (white/alpha-*).",
+        "brand_neutrals_scale": {
+          "note": "Skala brand-neutrals z kolekcji 'brand colors' — używana przez semantic colors w trybie dark. Wartości identyczne z raw colors/neutral.",
+          "50":  "#FAFAFA",
+          "100": "#F5F5F5",
+          "200": "#E5E5E5",
+          "300": "#D4D4D4",
+          "400": "#A3A3A3",
+          "500": "#737373",
+          "600": "#525252",
+          "700": "#404040",
+          "800": "#262626",
+          "900": "#171717",
+          "950": "#0A0A0A"
+        },
+        "dark_mode_values": {
+          "general": {
+            "background":            { "hex": "#0A0A0A", "alpha": 1,    "ref": "brand-neutrals/950" },
+            "foreground":            { "hex": "#FAFAFA", "alpha": 1,    "ref": "brand-neutrals/50" },
+            "primary":               { "hex": "#F5F5F5", "alpha": 1,    "ref": "brand-neutrals/100" },
+            "primary foreground":    { "hex": "#0A0A0A", "alpha": 1,    "ref": "brand-neutrals/950" },
+            "secondary":             { "hex": "#262626", "alpha": 1,    "ref": "brand-neutrals/800" },
+            "secondary foreground":  { "hex": "#F5F5F5", "alpha": 1,    "ref": "brand-neutrals/100" },
+            "accent":                { "hex": "#171717", "alpha": 1,    "ref": "brand-neutrals/900" },
+            "accent foreground":     { "hex": "#F5F5F5", "alpha": 1,    "ref": "brand-neutrals/100" },
+            "muted":                 { "hex": "#171717", "alpha": 1,    "ref": "brand-neutrals/900" },
+            "muted foreground":      { "hex": "#A3A3A3", "alpha": 1,    "ref": "brand-neutrals/400" },
+            "destructive":           { "hex": "#9E4042", "alpha": 1,    "ref": null },
+            "destructive foreground":{ "hex": "#FFFFFF", "alpha": 1,    "ref": "white/alpha-100" },
+            "border":                { "hex": "#404040", "alpha": 1,    "ref": "brand-neutrals/700" },
+            "input":                 { "hex": "#FFFFFF", "alpha": 0.05, "ref": "white/alpha-5" }
+          },
+          "card": {
+            "card":             { "hex": "#171717", "alpha": 1, "ref": "brand-neutrals/900" },
+            "card foreground":  { "hex": "#FFFFFF", "alpha": 1, "ref": "white/alpha-100" }
+          },
+          "popover": {
+            "popover":            { "hex": "#FFFFFF", "alpha": 1, "ref": "white/alpha-100" },
+            "popover foreground": { "hex": "#000000", "alpha": 1, "ref": "black/alpha-100" }
+          },
+          "focus": {
+            "ring":       { "hex": "#404040", "alpha": 1, "ref": "brand-neutrals/700" },
+            "ring error": { "hex": "#6D2E2F", "alpha": 1, "ref": null }
+          },
+          "sidebar": {
+            "sidebar":                   { "hex": "#0A0A0A", "alpha": 1, "ref": "brand-neutrals/950" },
+            "sidebar foreground":        { "hex": "#D4D4D4", "alpha": 1, "ref": "brand-neutrals/300" },
+            "sidebar primary":           { "hex": "#FAFAFA", "alpha": 1, "ref": "brand-neutrals/50" },
+            "sidebar primary foreground":{ "hex": "#171717", "alpha": 1, "ref": "brand-neutrals/900" },
+            "sidebar accent":            { "hex": "#171717", "alpha": 1, "ref": "brand-neutrals/900" },
+            "sidebar accent foreground": { "hex": "#F5F5F5", "alpha": 1, "ref": "brand-neutrals/100" },
+            "sidebar border":            { "hex": "#262626", "alpha": 1, "ref": "brand-neutrals/800" },
+            "sidebar ring":              { "hex": "#404040", "alpha": 1, "ref": "brand-neutrals/700" },
+            "sidebar muted":             { "hex": "#737373", "alpha": 1, "ref": "brand-neutrals/500" }
+          },
+          "unofficial": {
+            "foreground alt":   { "hex": "#D4D4D4", "alpha": 1,       "ref": "brand-neutrals/300" },
+            "body background":  { "hex": "#0A0A0A", "alpha": 1,       "ref": "brand-neutrals/950", "note": "dodatkowy token — nie ma odpowiednika w light mode" },
+            "ghost":            { "hex": "#FFFFFF", "alpha": 0.0001,   "ref": "white/alpha-001" },
+            "ghost hover":      { "hex": "#FFFFFF", "alpha": 0.1,      "ref": "white/alpha-10" },
+            "ghost foreground": { "hex": "#E5E5E5", "alpha": 1,       "ref": "brand-neutrals/200" },
+            "primary hover":    { "hex": "#D4D4D4", "alpha": 1,       "ref": "brand-neutrals/300" },
+            "secondary hover":  { "hex": "#171717", "alpha": 1,       "ref": "brand-neutrals/900" },
+            "outline":          { "hex": "#FFFFFF", "alpha": 0.05,     "ref": "white/alpha-5" },
+            "outline hover":    { "hex": "#FFFFFF", "alpha": 0.1,      "ref": "white/alpha-10" },
+            "outline active":   { "hex": "#FFFFFF", "alpha": 0.15,     "ref": "white/alpha-15", "note": "dodatkowy token — nie był widoczny w light mode" },
+            "backdrop":         { "hex": "#000000", "alpha": 0.6,      "ref": "black/alpha-60" },
+            "mid alt":          { "hex": "#A3A3A3", "alpha": 1,       "ref": "brand-neutrals/400" },
+            "accent 0":         { "hex": "#0A0A0A", "alpha": 1,       "ref": "brand-neutrals/950" },
+            "accent 2":         { "hex": "#262626", "alpha": 1,       "ref": "brand-neutrals/800" },
+            "accent 3":         { "hex": "#404040", "alpha": 1,       "ref": "brand-neutrals/700" },
+            "border 0":         { "hex": "#0A0A0A", "alpha": 1,       "ref": "brand-neutrals/950" },
+            "border 1":         { "hex": "#171717", "alpha": 1,       "ref": "brand-neutrals/900" },
+            "border 3":         { "hex": "#404040", "alpha": 1,       "ref": "brand-neutrals/700" },
+            "border 4":         { "hex": "#525252", "alpha": 1,       "ref": "brand-neutrals/600" },
+            "border 5":         { "hex": "#737373", "alpha": 1,       "ref": "brand-neutrals/500" },
+            "destructive text": { "hex": "#F87171", "alpha": 1,       "ref": "raw colors/red/400" },
+            "destructive border":{ "hex": "#EF4444", "alpha": 1,      "ref": "raw colors/red/500" },
+            "destructive subtle":{ "hex": "#450A0A", "alpha": 1,      "ref": "raw colors/red/950" }
+          }
+        },
+        "obra_shadcn_docs_tokens": {
+          "note": "2 tokeny używane wyłącznie przez dokumentację Obra — nie są częścią systemu projektowego aplikacji",
+          "obra shadcn ui docs 1": "#111628",
+          "obra shadcn ui docs 2": "#201D1B"
+        }
+      },
+      "groups": {
+        "general": {
+          "description": "Oficjalne tokeny shadcn/ui — core UI tokens używane przez wszystkie komponenty",
+          "tokens": [
+            { "name": "general/background",            "key": "f422b02a6c03a98952c44bc8ccedc49d74b24573", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--background",            "description": "Główne tło strony" },
+            { "name": "general/foreground",            "key": "f93623721e0867a1ad35b3b88f615ac1eb4833dc", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--foreground",            "description": "Główny kolor tekstu" },
+            { "name": "general/primary",               "key": "2a3cb346d49d44dd9777062395f84c0acd32e87e", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--primary",               "description": "Tło primary button, akcent brandowy" },
+            { "name": "general/primary foreground",    "key": "344b75dafdf88bd9f1eb0cab2d48665483c157ea", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--primary-foreground",    "description": "Tekst na tle primary" },
+            { "name": "general/secondary",             "key": "abea7a6c8142925f5822cd486555c32181555c89", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--secondary",             "description": "Tło secondary button" },
+            { "name": "general/secondary foreground",  "key": "77fdef1680636a527ab8dadd7fb1b3e4eaa376a7", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--secondary-foreground",  "description": "Tekst na tle secondary" },
+            { "name": "general/destructive",           "key": "9d092c4ac53fca346fa6b3fd18eeeb5deeacac57", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--destructive",           "description": "Kolor akcji destruktywnych (delete, error)" },
+            { "name": "general/destructive foreground","key": "d9d0a4bdd60f57deaa52c9b143feca58c72a7dd5", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--destructive-foreground","description": "Tekst na tle destructive" },
+            { "name": "general/muted",                 "key": "f043f973c6e2dafe6002f48fdad91b2a8842b140", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--muted",                 "description": "Stonowane tło (badges, sekcje pomocnicze)" },
+            { "name": "general/muted foreground",      "key": "9efe040b6b71221ddb28364fbfcd91a8753b08b8", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--muted-foreground",      "description": "Tekst pomocniczy, placeholder" },
+            { "name": "general/accent",                "key": "88425e604bb8ec78c14f04effa5a23946339d24e", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--accent",                "description": "Tło hover elementów interaktywnych" },
+            { "name": "general/accent foreground",     "key": "03f6f221372c6f153d836e5f7ead7b7f6c9bceb0", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--accent-foreground" },
+            { "name": "general/border",                "key": "9fa61b384236252ab10debbbf8d928e8e7f3831d", "scopes": ["STROKE"],                                 "cssVar": "--border",                "description": "Kolor obramowania komponentów" },
+            { "name": "general/input",                 "key": "6605337b1c08c4951842b3bfb25957e7c55d28f9", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--input",                 "description": "Tło/border pól formularzy" }
+          ]
+        },
+        "card": {
+          "description": "Tokeny dla komponentu Card — mogą różnić się od ogólnego tła",
+          "tokens": [
+            { "name": "card/card",          "key": "8ea1b4423658d7add1d9f1ea960a6c51e9965f73", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "cssVar": "--card",            "description": "Tło karty" },
+            { "name": "card/card foreground","key": "2973568015639ed793c18b11f60c6b98388a0583", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"], "cssVar": "--card-foreground", "description": "Tekst w karcie" }
+          ]
+        },
+        "popover": {
+          "description": "Tokeny dla Popover, Dropdown, Tooltip — floating elements",
+          "tokens": [
+            { "name": "popover/popover",          "key": "643612b0dab3f446c97fbd9e631ca21fa3c8de09", "scopes": ["ALL_SCOPES"], "cssVar": "--popover",            "description": "Tło popovera/dropdown" },
+            { "name": "popover/popover foreground","key": "a932efac275dd4099e6b2c8d7ccf36206992534e", "scopes": ["ALL_SCOPES"], "cssVar": "--popover-foreground", "description": "Tekst w popoverze" }
+          ]
+        },
+        "focus": {
+          "description": "Tokeny dla focus ring — dostępność (a11y)",
+          "tokens": [
+            { "name": "focus/ring",       "key": "71c53986bef7560589a0c97de4530c1b0f7ced1d", "scopes": ["STROKE", "EFFECT_COLOR"], "cssVar": "--ring",       "description": "Focus ring przy nawigacji klawiaturą" },
+            { "name": "focus/ring error", "key": "002ffae03c81993b854894eea8fb5a508fc410c4", "scopes": ["STROKE", "EFFECT_COLOR"],                           "description": "Focus ring na polu z błędem walidacji" }
+          ]
+        },
+        "sidebar": {
+          "description": "Tokeny dla komponentu Sidebar — osobna warstwa, może mieć inny motyw (np. ciemny sidebar na jasnym tle)",
+          "tokens": [
+            { "name": "sidebar/sidebar",                   "key": "74b8313aade74cf4a950aab92e2fe5e770393959", "scopes": ["FRAME_FILL", "SHAPE_FILL"],                           "cssVar": "--sidebar-background" },
+            { "name": "sidebar/sidebar foreground",        "key": "c13eeeae45c5802d0907815c8902ade644c3c205", "scopes": ["SHAPE_FILL", "TEXT_FILL", "STROKE", "EFFECT_COLOR"], "cssVar": "--sidebar-foreground" },
+            { "name": "sidebar/sidebar primary",           "key": "b9eae2c307a9f2518d418969813887323c6c4f33", "scopes": ["FRAME_FILL", "SHAPE_FILL"],                           "cssVar": "--sidebar-primary" },
+            { "name": "sidebar/sidebar primary foreground","key": "4b159197f62a0dd96e47e15ce2c32ba36639a443", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"],           "cssVar": "--sidebar-primary-foreground" },
+            { "name": "sidebar/sidebar accent",            "key": "a5479fdf00751e45cee51bb249d66e7947fd5751", "scopes": ["FRAME_FILL", "SHAPE_FILL"],                           "cssVar": "--sidebar-accent" },
+            { "name": "sidebar/sidebar accent foreground", "key": "b3dd6fa1198463c5901a0c9669d962752013577c", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"],           "cssVar": "--sidebar-accent-foreground" },
+            { "name": "sidebar/sidebar border",            "key": "4d91d83ffc75849c1c0beb8bbf6cd074a89772bb", "scopes": ["STROKE"],                                             "cssVar": "--sidebar-border" },
+            { "name": "sidebar/sidebar ring",              "key": "9fcb2784d87754819cded1f9fbe22fcc3ab60009", "scopes": ["STROKE", "EFFECT_COLOR"],                             "cssVar": "--sidebar-ring" },
+            { "name": "sidebar/unofficial/sidebar muted", "key": "98bd2c57a4d7e585d4f183904a6f877c56b31f68", "scopes": ["FRAME_FILL", "SHAPE_FILL"] }
+          ]
+        },
+        "unofficial": {
+          "description": "Rozszerzenia Obra — tokeny pomocnicze spoza oficjalnej spec shadcn/ui. Zapewniają pełne stany interakcji (hover, active) i gradacje tonalne.",
+          "tokens": [
+            { "name": "unofficial/foreground alt",     "key": "68ff0676077d3e64ecbd8ff7e2a0dcc650ecfeeb", "scopes": ["SHAPE_FILL", "TEXT_FILL"],              "description": "Tekst body — nieco mniejszy kontrast niż foreground, używać do długich treści" },
+            { "name": "unofficial/ghost",              "key": "6037772e7fb7647a32bbe581989dcf64e0d0e3d0", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło ghost button (normalny stan, zwykle transparent)" },
+            { "name": "unofficial/ghost hover",        "key": "701b650e18285f6b9107d6926d22948d152a32ad", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło ghost button po najechaniu" },
+            { "name": "unofficial/ghost foreground",   "key": "179f8376a52d0c7a3f937fc921f8e2fe6be0b597", "scopes": ["SHAPE_FILL", "TEXT_FILL", "EFFECT_COLOR"],"description": "Tekst ghost button" },
+            { "name": "unofficial/primary hover",      "key": "59a1df07205c8f367273c147dbbcf811c9d2cb35", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło primary button po najechaniu" },
+            { "name": "unofficial/secondary hover",    "key": "efb4f806a7006ce49fc0f204fc7d292b7f2c6243", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło secondary button po najechaniu" },
+            { "name": "unofficial/outline",            "key": "5d8fd073134763316639dcc2ef4a46b2d4131acd", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło outline button (normalny stan)" },
+            { "name": "unofficial/outline hover",      "key": "90bb6a341d3b29f9e1905d6828494c97d87e3621", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Tło outline button po najechaniu" },
+            { "name": "unofficial/backdrop",           "key": "c8f33b288a11fe4968c977a1b749729c96f242b9", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Overlay/modal backdrop → alias do black/alpha-50" },
+            { "name": "unofficial/mid alt",            "key": "37001e343f8689b0275e045e73c39125a9328006", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Środkowy ton tła — między muted a accent" },
+            { "name": "unofficial/accent 0",           "key": "0b292e42db6f33ee9e926889fb8fea45e3c4d133", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Najjaśniejszy akcent (Level 0)" },
+            { "name": "unofficial/accent 2",           "key": "d4c8c992817191d76704a8e201c0f762f2151b8a", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Akcent Level 2" },
+            { "name": "unofficial/accent 3",           "key": "e03adad8a38600261df71ed959c1717a75624c46", "scopes": ["FRAME_FILL", "SHAPE_FILL"],              "description": "Akcent Level 3" },
+            { "name": "unofficial/border 0",           "key": "cc26f417c6cd54b5fb83d8b9b99640bd4ae67481", "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE"],    "description": "Najsubtelniejszy border (prawie niewidoczny)" },
+            { "name": "unofficial/border 1",           "key": "4eee609cd49e47d9e7416f686164828bb4cbccf0", "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE"],    "description": "Border Level 1 — separatory" },
+            { "name": "unofficial/border 3",           "key": "cf974dc2585897357b03556a8673ec0f5e582491", "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE"],    "description": "Border Level 3 — wyraźne obramowania" },
+            { "name": "unofficial/border 4",           "key": "744071f32461855c3c812762fb5af2fac7265af8", "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE"],    "description": "Border Level 4" },
+            { "name": "unofficial/border 5",           "key": "f1010c0d897fbbc3370ae51ed4ce799378ae24d1", "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE"],    "description": "Najciemniejszy border (silny kontrast)" },
+            { "name": "unofficial/destructive text",   "key": "d02dfa52f097a1931d7cedf5fe67fdf8121b42ea", "scopes": ["SHAPE_FILL", "TEXT_FILL"],           "description": "Tekst komunikatów błędów (inline error message)" },
+            { "name": "unofficial/destructive border", "key": "8beafcf286c4277df0ded6a2e3232045a2d97961", "scopes": ["STROKE"],                             "description": "Obramowanie pola z błędem" },
+            { "name": "unofficial/destructive subtle", "key": "84d27207a9be51dac137a826ce666360a41c17b9", "scopes": ["FRAME_FILL", "SHAPE_FILL"],           "description": "Subtelne tło dla sekcji błędu (np. toast error)" },
+            { "name": "unofficial/body background",    "key": "(dark mode only — VariableID:658:92959)", "scopes": ["FRAME_FILL", "SHAPE_FILL"],           "description": "Tło body strony — dark mode: brand-neutrals/950 (#0A0A0A)" },
+            { "name": "unofficial/outline active",     "key": "(dark mode only — VariableID:663:35805)", "scopes": ["FRAME_FILL", "SHAPE_FILL"],           "description": "Tło outline button w stanie active/pressed — dark: white/alpha-15" }
+          ]
+        }
+      }
+    },
+
+    "shadows": {
+      "collectionName": "shadows",
+      "variableSetKey": "1be43d028c2e18eaca1678dbd7204f6133104a55",
+      "description": "Tokeny cieni — każdy rozmiar ma 2 warstwy cienia (shadow 1 i shadow 2) z osobnymi tokenami float i tokenem koloru. Używane przez style efektów (shadow-sm, shadow-md itp.).",
+      "sizes": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+      "colorTokens": [
+        { "name": "2xs/color", "key": "a300c01e4bc5cb5f5c7c950cdffeb16590a778e5" },
+        { "name": "xs/color",  "key": "3c2cbb6fbe7086fa638f78c66c9f86751a0a42ac" },
+        { "name": "sm/color",  "key": "bda8d52641c7b6a71f399e2bb2404c653b7b711e" },
+        { "name": "md/color",  "key": "b1be45e80c2ffc328fdb818227ee557232f58190" },
+        { "name": "lg/color",  "key": "05a03cf1f086e98ca035937828fe094e181b75c6" },
+        { "name": "xl/color",  "key": "7a56bb9a3031a2bddb952ec0f467e40f551e0713" },
+        { "name": "2xl/color", "key": "1f453132b77c2a9c5d5bea451b9b5f1d35ee218f" }
+      ],
+      "floatTokensBySize": {
+        "sm": {
+          "shadow1": { "x": "c1c41d338a3cf2250f0c1396c301acfa855b768f", "y": "14291ea3735c97e6e45b253d32277eddd4620aa7", "blur": "5c24ada82d3e10a34ec3da88e97122a20fe35670", "spread": "551d9b4ecd5b8c76dffba3fed4dea63653027dc4" },
+          "shadow2": { "x": "03595ff69cae6a4d79861946e3b87ace98b2514e", "x2": "5bb199a8ed48ffa4cd4bfe71e0e748e1eb735dc1", "blur": "c06ba49b29bef7ea4319af737001998201c97d01", "spread": "8a925c5d1a823cf6acaf95d02a1ca7e168a00f60" }
+        },
+        "md": {
+          "shadow1": { "x": "5f2d551281c9b738363643910a11bcab5e0df20b", "y": "2409313eb84f3dca5e80d40db8c35443bed06110", "blur": "807fb872a0a1a0174ed10fbe47da7ba2d2a99850", "spread": "f83fe77da44f25434dfdef9cc8c4cd1920623a2e" },
+          "shadow2": { "x": "c899221b908ef175d73d84e86c705e70551eacb9", "blur": "821233305e9a4ba5ddc4392ef71612fe324203b8", "spread": "811977f939114519af3c4cac499c59c739f0bf21" }
+        },
+        "lg": {
+          "shadow1": { "x": "98f2fae78c091e1f607166869277fd4299604c72", "blur": "d665095b0cc3bd18adfcf053c0468d05bc5b6b85", "spread": "8e0fe59b4a85ca2b2039c742bc1c168c2e4ed267" },
+          "shadow2": { "x": "1c41193a269a08d55715be2cfba88c495b9ee1d2", "spread": "8a526daaa3d42ae5c068c015430c5fe9b77aa68b" }
+        },
+        "xl": {
+          "shadow1": { "x": "a123454fbc0647412de7da21506dc0e5a40c4cb8", "y": "75b30937449428a64883d18e566c39ed9807aa70", "spread": "4c0cf0719af72f72d682a4677766a11feb3b2266" },
+          "shadow2": { "x": "36da86919632b41007634a3814c8682488dfde94", "y": "133492bf083261a3bbf0cbd87d79b7edc366c2c6", "blur": "217f6c454304a83eac6c71ab348731fa6f4988d4", "spread": "3d23d0f4335755d2f8cceb593eb76f6f6d1800b1" }
+        }
+      }
+    },
+
+    "chart_colors": {
+      "collectionName": "chart colors",
+      "variableSetKey": "f2d15e9a20ed8009181d09530336ab0bdb250946",
+      "variableType": "COLOR",
+      "description": "11 tokenów w 3 grupach: categorical (5), sentiment (2), shades (4). Wszystkie mają tryby light i dark. dataSource: shadcn-darkcharts.tokens.json (tryb shadcn-dark — wartości light wymagają osobnego eksportu).",
+      "groups": {
+        "categorical": {
+          "description": "5 kolorów kategorycznych — główna paleta do wykresów wieloseriowych (słupkowe, liniowe, kołowe). CSS variables --chart-1 … --chart-5.",
+          "tokens": [
+            { "name": "categorical/chart 1", "key": "3a8d9a02db68372c1b83f4ffd6b477dc058f0c9d", "cssVar": "--chart-1", "dark_hex": "#1447E6", "figmaVariableId": "VariableID:1098:3" },
+            { "name": "categorical/chart 2", "key": "e8efe06a6f557027e92b329aaac687b5fafbf452", "cssVar": "--chart-2", "dark_hex": "#00BC7D", "figmaVariableId": "VariableID:1098:4" },
+            { "name": "categorical/chart 3", "key": "705cfe15d4f40d8d78e76c7c189c939c9b5f65cd", "cssVar": "--chart-3", "dark_hex": "#FD9A00", "figmaVariableId": "VariableID:1098:5" },
+            { "name": "categorical/chart 4", "key": "fbb359980230842e449edf47387ada64cdf2b6d6", "cssVar": "--chart-4", "dark_hex": "#AD46FF", "figmaVariableId": "VariableID:1098:6" },
+            { "name": "categorical/chart 5", "key": "2db1327a3fd880fd792d7b38bf6b16c1b44e47f9", "cssVar": "--chart-5", "dark_hex": "#FF2056", "figmaVariableId": "VariableID:1098:7" }
+          ]
+        },
+        "sentiment": {
+          "description": "2 tokeny semantyczne — do wykresów z oceną kierunkową (wzrost/spadek, zysk/strata, sukces/błąd).",
+          "tokens": [
+            { "name": "sentiment/positive", "figmaVariableId": "VariableID:1098:8", "dark_hex": "#00BC7D", "note": "= chart 2 dark — zielony" },
+            { "name": "sentiment/negative", "figmaVariableId": "VariableID:1098:9", "dark_hex": "#FF2056", "note": "= chart 5 dark — czerwony" }
+          ]
+        },
+        "shades": {
+          "description": "4 tokeny do wypełnień i obrysów (area charts, gradients). fill ma alpha 0.7 — do półprzezroczystych obszarów.",
+          "tokens": [
+            { "name": "shades/fill",     "figmaVariableId": "VariableID:1128:2", "dark_hex": "#475D75", "dark_alpha": 0.7,  "scope": "FRAME_FILL/SHAPE_FILL",  "note": "Półprzezroczyste wypełnienie area chart" },
+            { "name": "shades/stroke",   "figmaVariableId": "VariableID:1128:3", "dark_hex": "#8EC5FF", "dark_alpha": 1,    "scope": "SHAPE_FILL/STROKE",      "note": "Obrys linii wykresu" },
+            { "name": "shades/fill 2",   "figmaVariableId": "VariableID:1128:4", "dark_hex": "#1F4176", "dark_alpha": 0.7,  "scope": "FRAME_FILL/SHAPE_FILL",  "note": "Alternatywne wypełnienie (ciemniejsze)" },
+            { "name": "shades/stroke 2", "figmaVariableId": "VariableID:1128:5", "dark_hex": "#3F8DFF", "dark_alpha": 1,    "scope": "SHAPE_FILL/STROKE",      "note": "Alternatywny obrys" }
+          ]
+        }
+      }
+    }
+  },
+
+  "app_specific_colors": {
+    "description": "Tokeny kolorystyczne używane w aplikacji, które nie mają odpowiednika w Figma semantic_colors. Powinny zostać dodane do systemu designu w Figmie w przyszłości.",
+    "card_accents": {
+      "description": "Kolorowe tła kart wpisów dzienniczka — używane w EntryCard.tsx i EntrySidebar.tsx",
+      "tokens": [
+        { "name": "card-orange", "cssVar": "--color-card-orange", "hex": "#e8785a", "usage": "Tło karty wpisu (wariant pomarańczowy)" },
+        { "name": "card-yellow", "cssVar": "--color-card-yellow", "hex": "#f5c842", "usage": "Tło karty wpisu (wariant żółty)" },
+        { "name": "card-green",  "cssVar": "--color-card-green",  "hex": "#7dc987", "usage": "Tło karty wpisu (wariant zielony)" },
+        { "name": "card-blue",   "cssVar": "--color-card-blue",   "hex": "#6ab0e8", "usage": "Tło karty wpisu (wariant niebieski)" }
+      ]
+    },
+    "surface": {
+      "description": "Token tła dla dymków czatu Freuda i neutralnych kart — nie jest częścią shadcn/ui, dodany przez app. Switchuje między trybami przez CSS var.",
+      "cssVar": "--surface",
+      "foregroundCssVar": "--surface-foreground",
+      "light": { "surface": "oklch(98.5% 0.001 106.423)", "surface_foreground": "oklch(9.8% 0.002 264)" },
+      "dark":  { "surface": "#171717", "surface_foreground": "#FFFFFF", "note": "dark = brand-neutrals/900, jak --card" }
+    }
+  },
+
+  "styles": {
+    "shadows": {
+      "description": "7 stylów efektów złożonych z tokenów kolekcji shadows. Gotowe do użycia w komponentach.",
+      "items": [
+        { "name": "shadow-2xs", "key": "f929a09cf531a15a4deec082c61684ec6a0c1ecc" },
+        { "name": "shadow-xs",  "key": "c5ab9279d4e5e8a7881227e1d94732ef493d0786" },
+        { "name": "shadow-sm",  "key": "233b5eeb000e3d9b1c573bd30610ba1a5bf80a1a" },
+        { "name": "shadow-md",  "key": "e8ca62d0d1b5427b8835b9e9a8a1e29eab1417e1" },
+        { "name": "shadow-lg",  "key": "1db79eeb07fb6671be8792e0e17cd7d53917af32" },
+        { "name": "shadow-xl",  "key": "1641b2eca8d1c7dc25dd9617738b89a442fb74c3" },
+        { "name": "shadow-2xl", "key": "74a55e48146118af13e7f8522d950abc16c0b6d8" }
+      ]
+    }
+  },
+
+  "dependencyMap": {
+    "description": "Mapa zależności między kolekcjami — od prymitywów do komponentów. Wartości płyną od dołu (prymitywy) do góry (komponenty).",
+    "layers": [
+      {
+        "layer": "1 — Prymitywy (absolutne wartości px/hex)",
+        "collections": ["raw_colors", "border_radii_absolute", "spacing_absolute", "alpha"],
+        "description": "Surowe, niezmienne wartości. Żadnych aliasów — tylko liczby i kolory. Nie powinny być używane bezpośrednio przez komponenty."
+      },
+      {
+        "layer": "2 — Semantyka (tryby light/dark, aliasy)",
+        "collections": ["semantic_colors", "border_radii_relative", "spacing_absolute (semantic mapping)", "chart_colors", "shadows"],
+        "description": "Tokeny z sensem UI. Mogą mieć wiele trybów (light/dark). Odnoszą się do prymitywów."
+      },
+      {
+        "layer": "3 — Komponenty shadcn/ui",
+        "collections": ["(używają CSS variables z warstwy 2)"],
+        "description": "Komponenty nigdy nie sięgają do warstwy 1 bezpośrednio."
+      }
+    ],
+    "relationships": [
+      {
+        "from": "semantic_colors",
+        "to": "raw_colors",
+        "type": "alias",
+        "how": "Tokeny semantyczne są aliasami → raw_colors. Przykład: background (light) → white (#FFFFFF), background (dark) → zinc.950 (#09090B). Foreground (light) → zinc.950, foreground (dark) → zinc.50."
+      },
+      {
+        "from": "semantic_colors (unofficial: ghost, backdrop)",
+        "to": "alpha",
+        "type": "alias",
+        "how": "Tokeny ghost/backdrop wskazują na alpha collection — np. backdrop → black/alpha-50 (rgba(0,0,0,0.5))."
+      },
+      {
+        "from": "border_radii_relative",
+        "to": "border_radii_absolute",
+        "type": "alias + calc",
+        "how": "Każdy semantyczny token jest bezpośrednim aliasem do jednego tokenu absolutnego. Pełna mapa (tryb 'shadcn'): rounded-none→0px (bez aliasu), rounded-xs→radius-2, rounded-sm→radius-4, rounded-md→radius-6, rounded-lg→radius-8, radius→radius-10 (10px domyślnie — UWAGA: nie 8px!), rounded-xl→radius-12, rounded-2xl→radius-16, rounded-3xl→radius-24, rounded-full→radius-infinite (9999px)."
+      },
+      {
+        "from": "shadows (style)",
+        "to": "shadows (color + float tokens)",
+        "type": "composite",
+        "how": "Każdy styl cienia (shadow-sm itd.) składa się z tokenu koloru (sm/color) + tokenów float (x,y,blur,spread). Razem definiują CSS box-shadow."
+      },
+      {
+        "from": "shadows (color token)",
+        "to": "raw_colors lub alpha",
+        "type": "alias",
+        "how": "Kolor cienia to prawdopodobnie alias do black/alpha-* z kolekcji alpha lub do neutral.900 z raw_colors."
+      },
+      {
+        "from": "spacing_semantic (t-shirt scale)",
+        "to": "spacing_absolute",
+        "type": "alias",
+        "how": "Każdy token semantyczny (3xs…10xl) wskazuje na jeden token z spacing (absolute). Pełna mapa: 3xs→0,5(2px), 2xs→1(4px), xs→2(8px), sm→3(12px), md→4(16px), lg→5(20px), xl→6(24px), 2xl→8(32px), 3xl→10(40px), 4xl→12(48px), 5xl→16(64px), 6xl→20(80px), 7xl→24(96px), 8xl→28(112px), 9xl→32(128px), 10xl→36(144px). UWAGA: brak xl tokenów dla 28px (semantic) — skok z xl(24px) do 2xl(32px) pomija 28px."
+      },
+      {
+        "from": "spacing_semantic (hacks to fit scale)",
+        "to": "spacing_absolute (wartości bezpośrednie)",
+        "type": "direct value",
+        "how": "11 tokenów bez aliasów — wartości nieparzyste potrzebne komponentom: 3, 5.5, 6, 7, 7.5, 8.5, 9, 9.5, 10, 14, 15.5px. Używane gdy standardowa skala ×4 jest zbyt zgrubna (np. precyzyjne padding w button, badge, input)."
+      },
+      {
+        "from": "components (shadcn/ui)",
+        "to": "semantic_colors + border_radii_relative + shadows",
+        "type": "CSS variable consumption",
+        "how": "Komponenty używają var(--background), var(--foreground), var(--radius), var(--border) itd. CSS variables są injektowane w :root { } z wartości semantycznych tokenów."
+      }
+    ]
+  }
+}

@@ -1,17 +1,23 @@
 'use client'
 
-import { useState, useEffect, useRef, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent, type ChangeEvent } from 'react'
 import type { Mood, Entry } from '@/lib/types'
 import { MoodSelector } from './MoodSelector'
 import { TagInput } from './TagInput'
-import { Mic, MicOff, Loader2 } from 'lucide-react'
+import { Mic, MicOff, Loader2, X } from 'lucide-react'
 import { useVoiceRecorder } from '@/lib/useVoiceRecorder'
+import { Button } from '@/components/ui/button'
+import { ChevronLeftIcon, PhotoIcon } from '@heroicons/react/24/outline'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/lib/auth-context'
+import { cn } from '@/lib/utils'
 
 interface FormData {
   title: string
   content: string
   mood: Mood | null
   tags: string[]
+  image_url?: string | null
 }
 
 interface Props {
@@ -24,12 +30,17 @@ interface Props {
 }
 
 export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusTitle }: Props) {
+  const { user } = useAuth()
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
   const [mood, setMood] = useState<Mood | null>(initial?.mood ?? null)
   const [tags, setTags] = useState<string[]>(initial?.tags ?? [])
+  const [imageUrl, setImageUrl] = useState<string | null>(initial?.image_url ?? null)
+  const [imagePath, setImagePath] = useState<string | null>(null)
+  const [imageUploading, setImageUploading] = useState(false)
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isSavingRef = useRef(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!autoSave || !title.trim()) return
@@ -37,21 +48,55 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
     saveTimerRef.current = setTimeout(async () => {
       if (isSavingRef.current) return
       isSavingRef.current = true
-      await onSave({ title, content, mood, tags })
+      await onSave({ title, content, mood, tags, image_url: imageUrl })
       isSavingRef.current = false
     }, 600)
     return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current) }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, content, mood, tags, autoSave])
+  }, [title, content, mood, tags, imageUrl, autoSave])
 
   const { state: recorderState, error: recorderError, start, stop, reset } = useVoiceRecorder(
     (text) => setContent(prev => prev ? prev + ' ' + text : text)
   )
 
+  async function handleImageSelect(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file || !user) return
+    if (!file.type.startsWith('image/')) return
+    if (file.size > 10 * 1024 * 1024) return
+
+    setImageUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `${user.id}/${Date.now()}.${ext}`
+
+    const { error } = await supabase.storage
+      .from('entry-images')
+      .upload(path, file, { upsert: false })
+
+    if (!error) {
+      const { data: { publicUrl } } = supabase.storage
+        .from('entry-images')
+        .getPublicUrl(path)
+      setImageUrl(publicUrl)
+      setImagePath(path)
+    }
+    setImageUploading(false)
+    e.target.value = ''
+  }
+
+  async function handleImageRemove() {
+    const pathToDelete = imagePath ?? imageUrl?.split('/entry-images/')[1] ?? null
+    if (pathToDelete) {
+      await supabase.storage.from('entry-images').remove([pathToDelete])
+    }
+    setImageUrl(null)
+    setImagePath(null)
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!title.trim()) return
-    onSave({ title, content, mood, tags })
+    onSave({ title, content, mood, tags, image_url: imageUrl })
   }
 
   return (
@@ -59,21 +104,21 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
       {/* Nawigacja — tylko na mobile lub gdy nie autoSave */}
       {!autoSave && (
         <div className="flex items-center justify-between">
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="default"
             onClick={onCancel}
-            className="lg:hidden text-muted hover:text-foreground transition-colors text-sm px-2 py-1 -ml-2"
+            className="lg:hidden"
           >
-            ← Wróć
-          </button>
+            <ChevronLeftIcon className="size-4" />
+            Wstecz
+          </Button>
           <div className="hidden lg:block" />
           <h1 className="text-base font-bold text-foreground">{heading}</h1>
-          <button
-            type="submit"
-            className="bg-foreground text-background px-5 py-2 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity"
-          >
+          <Button type="submit" variant="default" size="default">
             Zapisz
-          </button>
+          </Button>
         </div>
       )}
 
@@ -100,7 +145,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           onChange={e => setContent(e.target.value)}
           placeholder="Co chcesz zapisać dzisiaj..."
           rows={8}
-          className="w-full bg-foreground/5 rounded-2xl p-4 pr-14 text-foreground placeholder:text-muted outline-none resize-none text-base leading-relaxed"
+          className="w-full bg-foreground/5 rounded-2xl p-4 pr-24 text-foreground placeholder:text-muted outline-none resize-none text-base leading-relaxed"
         />
 
         {/* Pasek fal dźwiękowych podczas nagrywania */}
@@ -139,8 +184,27 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           </div>
         )}
 
-        <button
+        {/* Przycisk dodawania zdjęcia */}
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={imageUploading || !!imageUrl}
+          title="Dodaj zdjęcie"
+          className="absolute bottom-3 right-12"
+        >
+          {imageUploading
+            ? <Loader2 size={18} className="animate-spin" />
+            : <PhotoIcon className="size-[18px]" />
+          }
+        </Button>
+
+        {/* Przycisk mikrofonu */}
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
           onClick={() => {
             if (recorderState === 'idle' || recorderState === 'error') {
               reset()
@@ -156,15 +220,11 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
             recorderState === 'error' ? (recorderError ?? 'Błąd — kliknij by spróbować ponownie') :
             'Nagraj głosowo'
           }
-          className={`absolute bottom-3 right-3 p-2 rounded-full transition-all ${
-            recorderState === 'recording'
-              ? 'text-red-500 bg-red-500/15 scale-110'
-              : recorderState === 'transcribing'
-              ? 'text-muted cursor-not-allowed'
-              : recorderState === 'error'
-              ? 'text-red-400 bg-red-500/10'
-              : 'text-muted hover:text-foreground hover:bg-foreground/10'
-          }`}
+          className={cn(
+            'absolute bottom-3 right-3',
+            recorderState === 'recording' && 'text-red-500 bg-red-500/15 scale-110',
+            recorderState === 'error' && 'text-red-400 bg-red-500/10',
+          )}
         >
           {recorderState === 'transcribing' ? (
             <Loader2 size={18} className="animate-spin" />
@@ -173,8 +233,26 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           ) : (
             <Mic size={18} />
           )}
-        </button>
+        </Button>
       </div>
+
+      {/* Podgląd zdjęcia */}
+      {imageUrl && (
+        <div className="relative">
+          <img
+            src={imageUrl}
+            alt="Zdjęcie do wpisu"
+            className="w-full max-h-64 object-cover rounded-lg"
+          />
+          <button
+            type="button"
+            onClick={handleImageRemove}
+            className="absolute top-2 right-2 p-1 rounded-full bg-background/80 text-foreground hover:bg-background transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
 
       <style>{`
         @keyframes soundwave {
@@ -192,6 +270,14 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
         <p className="text-sm text-muted mb-2">Tagi</p>
         <TagInput value={tags} onChange={setTags} />
       </div>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleImageSelect}
+      />
     </form>
   )
 }

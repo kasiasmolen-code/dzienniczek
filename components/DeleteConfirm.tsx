@@ -8,6 +8,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   open: boolean
@@ -26,18 +27,12 @@ export function DeleteConfirm({ open, onConfirm, onCancel }: Props) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col gap-2 sm:flex-row">
-          <button
-            onClick={onCancel}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-full border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/5 transition-colors"
-          >
+          <Button variant="secondary" size="lg" onClick={onCancel} className="w-full sm:w-auto">
             Anuluj
-          </button>
-          <button
-            onClick={onConfirm}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition-colors"
-          >
+          </Button>
+          <Button variant="destructive" size="lg" onClick={onConfirm} className="w-full sm:w-auto">
             Usuń
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

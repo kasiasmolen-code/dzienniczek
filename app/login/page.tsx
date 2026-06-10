@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -32,12 +33,14 @@ export default function LoginPage() {
     <main className="min-h-screen bg-background flex flex-col items-center justify-center gap-8 px-6">
       <div className="text-center">
         <h1 className="text-5xl font-black text-foreground">Dzienniczek</h1>
-        <p className="text-muted text-sm mt-2">Twoje codzienne notatki</p>
+        <p className="text-muted-foreground text-sm mt-2">Twoje codzienne notatki</p>
       </div>
 
-      <button
+      {/* Google — general/primary fill, general/primary foreground text */}
+      <Button
         onClick={signInWithGoogle}
-        className="flex items-center gap-3 px-6 py-3 bg-foreground text-background rounded-full font-semibold text-sm hover:opacity-90 transition-opacity"
+        size="lg"
+        className="w-full max-w-xs gap-3"
       >
         <svg width="20" height="20" viewBox="0 0 24 24">
           <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -46,53 +49,49 @@ export default function LoginPage() {
           <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>
         Zaloguj się przez Google
-      </button>
+      </Button>
 
       <div className="flex items-center gap-3 w-full max-w-xs">
-        <div className="flex-1 h-px bg-foreground/15" />
-        <span className="text-muted text-xs">lub</span>
-        <div className="flex-1 h-px bg-foreground/15" />
+        <div className="flex-1 h-px bg-border" />
+        <span className="text-muted-foreground text-xs">lub</span>
+        <div className="flex-1 h-px bg-border" />
       </div>
 
       <form onSubmit={handleEmailAuth} className="flex flex-col gap-3 w-full max-w-xs">
-        <div className="flex gap-2 bg-foreground/5 rounded-lg p-1">
+        {/* Tab toggle — general/muted tło, general/secondary aktywny tab */}
+        <div className="flex gap-1 bg-muted rounded-lg p-1">
           <button
             type="button"
-            onClick={() => {
-              setIsSignUp(false)
-              setError(null)
-            }}
-            className={`flex-1 py-2 rounded-md text-xs font-medium transition-colors ${
+            onClick={() => { setIsSignUp(false); setError(null) }}
+            className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors ${
               !isSignUp
-                ? 'bg-foreground/10 text-foreground'
-                : 'text-muted hover:text-foreground/70'
+                ? 'bg-secondary text-secondary-foreground'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Zaloguj się
           </button>
           <button
             type="button"
-            onClick={() => {
-              setIsSignUp(true)
-              setError(null)
-            }}
-            className={`flex-1 py-2 rounded-md text-xs font-medium transition-colors ${
+            onClick={() => { setIsSignUp(true); setError(null) }}
+            className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors ${
               isSignUp
-                ? 'bg-foreground/10 text-foreground'
-                : 'text-muted hover:text-foreground/70'
+                ? 'bg-secondary text-secondary-foreground'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Zarejestruj się
           </button>
         </div>
 
+        {/* Inputs — general/input tło, general/border obramowanie */}
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
-          className="bg-foreground/8 rounded-xl px-4 py-3 text-foreground placeholder:text-muted outline-none text-sm border border-foreground/10 focus:border-foreground/30 transition-colors"
+          className="bg-input rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground outline-none text-sm border border-border focus:border-ring transition-colors"
         />
         <input
           type="password"
@@ -100,22 +99,17 @@ export default function LoginPage() {
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          className="bg-foreground/8 rounded-xl px-4 py-3 text-foreground placeholder:text-muted outline-none text-sm border border-foreground/10 focus:border-foreground/30 transition-colors"
+          className="bg-input rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground outline-none text-sm border border-border focus:border-ring transition-colors"
         />
-        {error && <p className="text-red-400 text-xs px-1">{error}</p>}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="bg-foreground/10 text-foreground rounded-xl px-4 py-3 text-sm font-semibold hover:bg-foreground/15 transition-colors disabled:opacity-50"
-        >
+
+        {error && <p className="text-destructive text-xs px-1">{error}</p>}
+
+        {/* Submit — general/primary fill, general/primary foreground text */}
+        <Button type="submit" size="lg" className="w-full" disabled={submitting}>
           {submitting
-            ? isSignUp
-              ? 'Rejestracja…'
-              : 'Logowanie…'
-            : isSignUp
-              ? 'Zarejestruj się'
-              : 'Zaloguj się'}
-        </button>
+            ? isSignUp ? 'Rejestracja…' : 'Logowanie…'
+            : isSignUp ? 'Zarejestruj się' : 'Zaloguj się'}
+        </Button>
       </form>
     </main>
   )

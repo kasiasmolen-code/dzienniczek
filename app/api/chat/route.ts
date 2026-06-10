@@ -1,17 +1,34 @@
 import { streamText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
 import { buildSystemPrompt } from '@/lib/freud-prompt'
+import { generateEmbedding } from '@/lib/api/embeddings'
+import { hybridSearchEntries } from '@/lib/api/supabase-server'
 import type { Entry } from '@/lib/types'
 
 export async function POST(req: Request) {
   try {
-    const { messages, entries, activeEntry } = await req.json() as {
+    const { messages, entries, activeEntry, userId } = await req.json() as {
       messages: { role: 'user' | 'assistant'; content: string }[]
       entries: Entry[]
       activeEntry?: Entry | null
+      userId?: string | null
     }
 
-    const systemPrompt = buildSystemPrompt(entries, activeEntry)
+    // Run hybrid search using the last user message
+    let relevantEntries: Entry[] = []
+    if (userId) {
+      const lastUserMsg = [...messages].reverse().find(m => m.role === 'user' && m.content !== '__init__')
+      if (lastUserMsg) {
+        try {
+          const embedding = await generateEmbedding(lastUserMsg.content)
+          relevantEntries = await hybridSearchEntries(userId, embedding, lastUserMsg.content, 15)
+        } catch (err) {
+          console.error('[hybrid search] failed:', err)
+        }
+      }
+    }
+
+    const systemPrompt = buildSystemPrompt(entries, activeEntry, relevantEntries)
 
     const result = streamText({
       model: anthropic('claude-sonnet-4-6'),

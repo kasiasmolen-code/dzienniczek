@@ -6,7 +6,9 @@ import { useAuth } from '@/lib/auth-context'
 import { useConversations } from '@/lib/conversations-context'
 import { useEntries } from '@/lib/entries-context'
 import { FreudChat } from '@/components/FreudChat'
-import { Trash2, Plus, ChevronLeft } from 'lucide-react'
+import { Trash2, Plus } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import type { Conversation } from '@/lib/conversations-context'
 
 export default function FreudPage() {
@@ -55,9 +57,10 @@ export default function FreudPage() {
       <div className="lg:hidden flex flex-col h-screen bg-background">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 pt-10 pb-4 border-b border-foreground/10 shrink-0">
-          <button onClick={() => router.push('/')} className="text-muted hover:text-foreground transition-colors p-1">
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+          <Button variant="ghost" size="default" onClick={() => router.push('/')}>
+            <ChevronLeftIcon className="size-4" />
+            Wstecz
+          </Button>
           <div className="flex-1">
             <h1 className="text-lg font-black text-foreground">Freud</h1>
             {activeConversation?.title && (
@@ -117,9 +120,9 @@ export default function FreudPage() {
         <div className="w-[22%] min-w-[220px] max-w-[320px] flex flex-col border-r border-foreground/10 h-full">
           <div className="px-4 pt-6 pb-4 border-b border-foreground/10 flex items-center justify-between shrink-0">
             <div>
-              <button onClick={() => router.push('/')} className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors mb-2">
-                <ChevronLeft className="w-4 h-4" /> Wstecz
-              </button>
+              <Button variant="ghost" size="default" onClick={() => router.push('/')} className="mb-2">
+                Wstecz
+              </Button>
               <h1 className="text-xl font-black text-foreground">🧠 Freud</h1>
             </div>
             <button

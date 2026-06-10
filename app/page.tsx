@@ -80,7 +80,7 @@ export default function HomePage() {
           {/* New entry — big bar */}
           <button
             onClick={handleNewEntry}
-            className="flex items-center justify-center gap-2 w-full py-3 mb-6 bg-foreground text-background rounded-xl text-sm font-semibold hover:opacity-85 transition-opacity"
+            className="flex items-center justify-center gap-2 w-full py-3 mb-6 bg-foreground text-background rounded-lg text-sm font-semibold hover:opacity-85 transition-opacity"
           >
             <Plus className="w-4 h-4" />
             Nowy wpis

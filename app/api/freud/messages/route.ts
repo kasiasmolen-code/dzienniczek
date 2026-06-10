@@ -11,7 +11,9 @@ import {
   saveMessage,
   updateConversationTitle,
   getUserEntries,
+  hybridSearchEntries,
 } from '@/lib/api/supabase-server'
+import { generateEmbedding } from '@/lib/api/embeddings'
 import { ApiError, ApiResponse, Message } from '@/lib/api/types'
 
 // POST - Send message to Freud (streams response)
@@ -35,13 +37,22 @@ export async function POST(req: Request) {
       await updateConversationTitle(userId, validated.conversation_id, title)
     }
 
-    // Get user's entries for context (Freud needs them)
-    const { entries } = await getUserEntries(userId, {
-      limit: 50,
-      offset: 0,
-      sort: 'created_at',
-      order: 'desc',
-    })
+    // Get user's entries for context (Freud needs them) + hybrid search in parallel
+    const [{ entries }, queryEmbedding] = await Promise.all([
+      getUserEntries(userId, { limit: 50, offset: 0, sort: 'created_at', order: 'desc' }),
+      generateEmbedding(validated.content).catch((err) => {
+        console.error('[hybrid search] embedding failed:', err)
+        return null
+      }),
+    ])
+
+    // Run hybrid search if embedding succeeded (skip gracefully if OpenAI is unavailable)
+    const relevantEntries = queryEmbedding
+      ? await hybridSearchEntries(userId, queryEmbedding, validated.content, 15).catch((err) => {
+          console.error('[hybrid search] search failed:', err)
+          return []
+        })
+      : []
 
     // Get messages from current conversation (excluding the one we just saved)
     const { messages: conversationMessages } = await getConversationMessages(userId, validated.conversation_id, {
@@ -67,6 +78,7 @@ export async function POST(req: Request) {
         messages: formattedMessages,
         entries,
         activeEntry: conversation.entry_id ? entries.find((e) => e.id === conversation.entry_id) : null,
+        relevantEntries,
       }),
     })
 

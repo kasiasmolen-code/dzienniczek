@@ -6,6 +6,8 @@ import { useEntries } from '@/lib/entries-context'
 import { moodEmoji } from '@/components/MoodSelector'
 import { DeleteConfirm } from '@/components/DeleteConfirm'
 import { formatDate } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 
 export default function EntryDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -32,25 +34,17 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
     <main className="min-h-screen bg-background px-6 md:px-8 pb-10 max-w-2xl mx-auto">
       {/* Nawigacja */}
       <div className="flex items-center justify-between pt-8 mb-10">
-        <button
-          onClick={() => router.push('/')}
-          className="text-muted hover:text-foreground transition-colors p-2 -ml-2 text-lg"
-        >
-          ←
-        </button>
+        <Button variant="ghost" size="default" onClick={() => router.push('/')}>
+          <ChevronLeftIcon className="size-4" />
+          Wstecz
+        </Button>
         <div className="flex gap-2">
-          <button
-            onClick={() => router.push(`/${id}/edit`)}
-            className="px-4 py-2 rounded-full border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/5 transition-colors"
-          >
+          <Button variant="secondary" size="lg" onClick={() => router.push(`/${id}/edit`)}>
             Edytuj
-          </button>
-          <button
-            onClick={() => setShowDelete(true)}
-            className="px-4 py-2 rounded-full bg-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/30 transition-colors"
-          >
+          </Button>
+          <Button variant="destructive" size="lg" onClick={() => setShowDelete(true)}>
             Usuń
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -70,6 +64,15 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
       <p className="text-base text-foreground leading-relaxed whitespace-pre-wrap">
         {entry.content || <span className="text-foreground/30 italic">Brak treści</span>}
       </p>
+
+      {/* Zdjęcie */}
+      {entry.image_url && (
+        <img
+          src={entry.image_url}
+          alt="Zdjęcie do wpisu"
+          className="w-full rounded-lg mt-6 object-cover max-h-96"
+        />
+      )}
 
       {/* Tagi */}
       {entry.tags.length > 0 && (

@@ -36,6 +36,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
     body: {
       entries,
       activeEntry: activeEntry ?? null,
+      userId: entries[0]?.user_id ?? null,
     },
     onFinish: async (message) => {
       const userMessages = messages.filter(m => m.role === 'user')

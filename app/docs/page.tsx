@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { ChevronLeft, Menu, X, ChevronRight } from 'lucide-react'
+import { Menu, X, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 import { openApiSpec } from '@/lib/openapi'
 import { supabase } from '@/lib/supabase'
@@ -713,11 +715,10 @@ export default function DocsPage() {
       {/* ── Desktop Sidebar ── */}
       <aside className="hidden lg:block w-60 shrink-0 border-r border-foreground/10 sticky top-0 h-screen overflow-y-auto">
         <div className="px-4 pt-6 pb-2">
-          <button onClick={() => router.push('/')}
-            className="flex items-center gap-1.5 text-xs text-foreground/40 hover:text-foreground transition-colors">
-            <ChevronLeft className="w-3.5 h-3.5" />
+          <Button variant="ghost" size="default" onClick={() => router.push('/')}>
+            <ChevronLeftIcon className="size-4" />
             Wstecz
-          </button>
+          </Button>
           <h1 className="text-base font-black text-foreground mt-3 leading-tight">Dokumentacja</h1>
           <p className="text-xs text-foreground/40 mt-0.5">Dzienniczek API & MCP</p>
         </div>
