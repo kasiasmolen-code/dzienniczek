@@ -6,7 +6,7 @@ import { useAuth } from '@/lib/auth-context'
 import { useConversations } from '@/lib/conversations-context'
 import { useEntries } from '@/lib/entries-context'
 import { FreudChat } from '@/components/FreudChat'
-import { Trash2, Plus } from 'lucide-react'
+import { TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import type { Conversation } from '@/lib/conversations-context'
@@ -64,20 +64,17 @@ export default function FreudPage() {
           <div className="flex-1">
             <h1 className="text-lg font-black text-foreground">Freud</h1>
             {activeConversation?.title && (
-              <p className="text-xs text-muted truncate">{activeConversation.title}</p>
+              <p className="text-xs text-muted-foreground truncate">{activeConversation.title}</p>
             )}
           </div>
-          <button
-            onClick={() => setShowSidebar(true)}
-            className="text-xs text-muted hover:text-foreground border border-foreground/20 rounded-full px-3 py-1"
-          >
+          <Button variant="outline" size="default" onClick={() => setShowSidebar(true)}>
             Historia
-          </button>
+          </Button>
           <button
             onClick={handleNew}
             className="w-8 h-8 bg-foreground text-background rounded-full flex items-center justify-center"
           >
-            <Plus className="w-4 h-4" />
+            <PlusIcon className="w-4 h-4" />
           </button>
         </div>
 
@@ -121,6 +118,7 @@ export default function FreudPage() {
           <div className="px-4 pt-6 pb-4 border-b border-foreground/10 flex items-center justify-between shrink-0">
             <div>
               <Button variant="ghost" size="default" onClick={() => router.push('/')} className="mb-2">
+                <ChevronLeftIcon className="size-4" />
                 Wstecz
               </Button>
               <h1 className="text-xl font-black text-foreground">🧠 Freud</h1>
@@ -130,7 +128,7 @@ export default function FreudPage() {
               className="w-8 h-8 bg-foreground text-background rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"
               title="Nowa rozmowa"
             >
-              <Plus className="w-4 h-4" />
+              <PlusIcon className="w-4 h-4" />
             </button>
           </div>
 
@@ -178,14 +176,14 @@ function ConversationList({
   onDelete: (id: string, e: React.MouseEvent) => void
   onNew: () => void
 }) {
-  if (loading) return <p className="text-muted text-sm px-4 py-6 text-center">Ładowanie…</p>
+  if (loading) return <p className="text-muted-foreground text-sm px-4 py-6 text-center">Ładowanie…</p>
   if (conversations.length === 0) {
     return (
       <div className="px-4 py-8 text-center">
-        <p className="text-muted text-sm mb-3">Brak rozmów</p>
-        <button onClick={onNew} className="text-xs text-foreground border border-foreground/20 rounded-full px-4 py-2 hover:bg-foreground/5 transition-colors">
+        <p className="text-muted-foreground text-sm mb-3">Brak rozmów</p>
+        <Button variant="secondary" size="lg" onClick={onNew}>
           Rozpocznij pierwszą rozmowę
-        </button>
+        </Button>
       </div>
     )
   }
@@ -203,15 +201,15 @@ function ConversationList({
               <p className="text-sm font-medium text-foreground truncate">
                 {c.title ?? 'Nowa rozmowa'}
               </p>
-              <p className="text-xs text-muted">
+              <p className="text-xs text-muted-foreground">
                 {new Date(c.created_at).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })}
               </p>
             </div>
             <button
               onClick={(e) => onDelete(c.id, e)}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted hover:text-red-400 p-1 shrink-0"
+              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive p-1 shrink-0"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <TrashIcon className="w-3.5 h-3.5" />
             </button>
           </div>
         </li>
@@ -226,16 +224,13 @@ function EmptyState({ onNew }: { onNew: () => void }) {
       <span className="text-6xl">🧠</span>
       <div>
         <h2 className="text-xl font-black text-foreground mb-2">Cześć, jestem Freud</h2>
-        <p className="text-muted text-sm max-w-sm">
+        <p className="text-muted-foreground text-sm max-w-sm">
           Twój asystent terapeutyczny. Analizuję Twoje wpisy i pomagam zrozumieć emocje oraz wzorce nastroju.
         </p>
       </div>
-      <button
-        onClick={onNew}
-        className="bg-foreground text-background px-6 py-3 rounded-full font-semibold text-sm hover:opacity-80 transition-opacity"
-      >
+      <Button variant="default" size="default" onClick={onNew}>
         Rozpocznij rozmowę
-      </button>
+      </Button>
     </div>
   )
 }

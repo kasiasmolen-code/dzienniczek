@@ -25,7 +25,7 @@ export function EntrySidebar({ entries, selectedId, onSelect }: Props) {
     <aside className="flex flex-col h-full overflow-hidden">
       <div className="flex-1 overflow-y-auto">
         {entries.length === 0 ? (
-          <p className="text-muted text-sm px-4 py-6 text-center">Brak wpisów</p>
+          <p className="text-muted-foreground text-sm px-4 py-6 text-center">Brak wpisów</p>
         ) : (
           <ul>
             {entries.map((entry, index) => {

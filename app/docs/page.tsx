@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Menu, X, ChevronRight } from 'lucide-react'
+import { Bars3Icon, XMarkIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
@@ -95,7 +95,7 @@ function Sidebar({ active, onClose }: { active: string; onClose?: () => void }) 
                       }`}
                     >
                       {item.label}
-                      <ChevronRight className={`w-3.5 h-3.5 transition-transform ${expanded[item.id] ? 'rotate-90' : ''}`} />
+                      <ChevronRightIcon className={`w-3.5 h-3.5 transition-transform ${expanded[item.id] ? 'rotate-90' : ''}`} />
                     </button>
                     {expanded[item.id] && (
                       <ul className="ml-3 mt-0.5 space-y-0.5 border-l border-foreground/10 pl-3">
@@ -181,8 +181,8 @@ function AuthSection() {
       {isLoggedIn ? (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-green-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+            <span className="text-xs font-semibold text-success flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
               Twój token
             </span>
             <div className="flex gap-2">
@@ -193,7 +193,7 @@ function AuthSection() {
               </button>
               <button onClick={copyToken}
                 className="flex items-center gap-1 px-3 py-1 text-xs rounded-full bg-foreground/10 hover:bg-foreground/20 text-foreground/60 hover:text-foreground transition-colors">
-                {copied ? <ClipboardDocumentCheckIcon className="w-3.5 h-3.5 text-green-400" /> : <ClipboardDocumentIcon className="w-3.5 h-3.5" />}
+                {copied ? <ClipboardDocumentCheckIcon className="w-3.5 h-3.5 text-success" /> : <ClipboardDocumentIcon className="w-3.5 h-3.5" />}
                 {copied ? 'Skopiowano!' : 'Kopiuj'}
               </button>
             </div>
@@ -208,7 +208,7 @@ function AuthSection() {
           <pre className="bg-foreground/5 border border-foreground/10 rounded-2xl p-4 text-xs text-foreground/50 font-mono">
             {`Authorization: Bearer YOUR_JWT_TOKEN`}
           </pre>
-          <p className="text-xs text-yellow-400/80 flex items-center gap-2">
+          <p className="text-xs text-warning/80 flex items-center gap-2">
             <span>⚠️</span> Zaloguj się aby zobaczyć swój token tutaj.
           </p>
         </div>
@@ -220,8 +220,8 @@ function AuthSection() {
 // ─── Endpoint Card ────────────────────────────────────────────────────────────
 
 const METHOD_STYLES = {
-  POST: 'bg-green-500/15 text-green-400 border border-green-500/30',
-  GET: 'bg-blue-500/15 text-blue-400 border border-blue-500/30',
+  POST: 'bg-success/15 text-success border border-success/30',
+  GET: 'bg-info/15 text-info border border-info/30',
 }
 
 interface EndpointExample {
@@ -283,14 +283,14 @@ function EndpointCard({ endpoint }: { endpoint: EndpointExample }) {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <p className="text-xs font-semibold text-green-400/70 uppercase tracking-wider mb-2">✓ Sukces (200/201)</p>
-              <pre className="bg-green-500/5 border border-green-500/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
+              <p className="text-xs font-semibold text-success/70 uppercase tracking-wider mb-2">✓ Sukces (200/201)</p>
+              <pre className="bg-success/5 border border-success/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
                 {endpoint.successResponse}
               </pre>
             </div>
             <div>
-              <p className="text-xs font-semibold text-red-400/70 uppercase tracking-wider mb-2">✕ Błąd</p>
-              <pre className="bg-red-500/5 border border-red-500/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
+              <p className="text-xs font-semibold text-error/70 uppercase tracking-wider mb-2">✕ Błąd</p>
+              <pre className="bg-error/5 border border-error/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
                 {endpoint.errorResponse}
               </pre>
             </div>
@@ -320,7 +320,7 @@ function McpToolCard({ tool }: { tool: McpTool }) {
       <button onClick={() => setIsOpen(!isOpen)}
         className="w-full px-5 py-4 flex items-center justify-between hover:bg-foreground/5 transition-colors">
         <div className="flex items-center gap-3 text-left flex-1 min-w-0">
-          <span className="px-2.5 py-1 rounded-lg font-mono text-xs font-bold shrink-0 bg-purple-500/15 text-purple-400 border border-purple-500/30">
+          <span className="px-2.5 py-1 rounded-lg font-mono text-xs font-bold shrink-0 bg-tool/15 text-tool border border-tool/30">
             tool
           </span>
           <div className="flex-1 min-w-0">
@@ -339,9 +339,9 @@ function McpToolCard({ tool }: { tool: McpTool }) {
             <div className="space-y-2">
               {tool.params.map(p => (
                 <div key={p.name} className="flex items-start gap-3 text-xs">
-                  <code className="text-purple-400 font-mono shrink-0">{p.name}</code>
+                  <code className="text-tool font-mono shrink-0">{p.name}</code>
                   <span className="text-foreground/30 shrink-0">{p.type}</span>
-                  {p.required && <span className="text-red-400/70 shrink-0">wymagane</span>}
+                  {p.required && <span className="text-error/70 shrink-0">wymagane</span>}
                   <span className="text-foreground/50">{p.desc}</span>
                 </div>
               ))}
@@ -356,8 +356,8 @@ function McpToolCard({ tool }: { tool: McpTool }) {
               </pre>
             </div>
             <div>
-              <p className="text-xs font-semibold text-green-400/70 uppercase tracking-wider mb-2">Odpowiedź</p>
-              <pre className="bg-green-500/5 border border-green-500/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
+              <p className="text-xs font-semibold text-success/70 uppercase tracking-wider mb-2">Odpowiedź</p>
+              <pre className="bg-success/5 border border-success/20 rounded-2xl p-4 text-xs text-foreground/70 font-mono overflow-x-auto h-full">
                 {tool.response}
               </pre>
             </div>
@@ -733,7 +733,7 @@ export default function DocsPage() {
             <div className="px-4 pt-6 pb-2 flex items-center justify-between">
               <h1 className="text-base font-black text-foreground">Dokumentacja</h1>
               <button onClick={() => setMobileOpen(false)} className="text-foreground/40 hover:text-foreground">
-                <X className="w-5 h-5" />
+                <XMarkIcon className="w-5 h-5" />
               </button>
             </div>
             <Sidebar active={activeSection} onClose={() => setMobileOpen(false)} />
@@ -747,7 +747,7 @@ export default function DocsPage() {
         {/* Mobile header */}
         <div className="lg:hidden sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-foreground/10 px-4 py-3 flex items-center gap-3">
           <button onClick={() => setMobileOpen(true)} className="text-foreground/60 hover:text-foreground">
-            <Menu className="w-5 h-5" />
+            <Bars3Icon className="w-5 h-5" />
           </button>
           <span className="text-sm font-bold text-foreground">Dokumentacja</span>
         </div>

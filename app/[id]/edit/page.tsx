@@ -16,7 +16,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
   if (!entry) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted">Wpis nie znaleziony</p>
+        <p className="text-muted-foreground">Wpis nie znaleziony</p>
       </main>
     )
   }

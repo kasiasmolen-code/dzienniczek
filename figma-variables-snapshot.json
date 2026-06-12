@@ -451,7 +451,7 @@
             "accent foreground":     { "hex": "#F5F5F5", "alpha": 1,    "ref": "brand-neutrals/100" },
             "muted":                 { "hex": "#171717", "alpha": 1,    "ref": "brand-neutrals/900" },
             "muted foreground":      { "hex": "#A3A3A3", "alpha": 1,    "ref": "brand-neutrals/400" },
-            "destructive":           { "hex": "#9E4042", "alpha": 1,    "ref": null },
+            "destructive":           { "hex": "#991B1B", "alpha": 1,    "ref": "raw colors/red/800" },
             "destructive foreground":{ "hex": "#FFFFFF", "alpha": 1,    "ref": "white/alpha-100" },
             "border":                { "hex": "#404040", "alpha": 1,    "ref": "brand-neutrals/700" },
             "input":                 { "hex": "#FFFFFF", "alpha": 0.05, "ref": "white/alpha-5" }
@@ -668,14 +668,15 @@
   },
 
   "app_specific_colors": {
-    "description": "Tokeny kolorystyczne używane w aplikacji, które nie mają odpowiednika w Figma semantic_colors. Powinny zostać dodane do systemu designu w Figmie w przyszłości.",
+    "description": "Tokeny app. card_accents zostały zsynchronizowane do Figmy (2026-06-11) jako semantic journal/*. surface pozostaje rozszerzeniem app bez odpowiednika w Figmie.",
     "card_accents": {
-      "description": "Kolorowe tła kart wpisów dzienniczka — używane w EntryCard.tsx i EntrySidebar.tsx",
+      "description": "Akcenty tła kart wpisów — od 2026-06-11 są w Figmie jako semantic 'journal/*' (kolekcja 'semantic colors', tryby shadcn/shadcn-dark), aliasy do raw colors. Light=Tailwind 400, dark=Tailwind 600. Używane w EntryCard.tsx i EntrySidebar.tsx (klasy bg-card-*). W kodzie: globals.css :root/.dark --card-* → @theme --color-card-*.",
+      "figmaCollection": "semantic colors",
       "tokens": [
-        { "name": "card-orange", "cssVar": "--color-card-orange", "hex": "#e8785a", "usage": "Tło karty wpisu (wariant pomarańczowy)" },
-        { "name": "card-yellow", "cssVar": "--color-card-yellow", "hex": "#f5c842", "usage": "Tło karty wpisu (wariant żółty)" },
-        { "name": "card-green",  "cssVar": "--color-card-green",  "hex": "#7dc987", "usage": "Tło karty wpisu (wariant zielony)" },
-        { "name": "card-blue",   "cssVar": "--color-card-blue",   "hex": "#6ab0e8", "usage": "Tło karty wpisu (wariant niebieski)" }
+        { "name": "journal/orange", "figmaVariableId": "VariableID:3042:2", "cssVar": "--color-card-orange", "light_ref": "raw colors/orange/400 (#FB923C)", "dark_ref": "raw colors/orange/600 (#EA580C)" },
+        { "name": "journal/yellow", "figmaVariableId": "VariableID:3042:3", "cssVar": "--color-card-yellow", "light_ref": "raw colors/amber/400 (#FBBF24)", "dark_ref": "raw colors/amber/600 (#D97706)" },
+        { "name": "journal/green",  "figmaVariableId": "VariableID:3042:4", "cssVar": "--color-card-green",  "light_ref": "raw colors/green/400 (#4ADE80)", "dark_ref": "raw colors/green/600 (#16A34A)" },
+        { "name": "journal/blue",   "figmaVariableId": "VariableID:3042:5", "cssVar": "--color-card-blue",   "light_ref": "raw colors/sky/400 (#38BDF8)", "dark_ref": "raw colors/sky/600 (#0284C7)" }
       ]
     },
     "surface": {

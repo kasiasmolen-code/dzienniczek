@@ -43,7 +43,7 @@ export function TagInput({ value, onChange }: Props) {
           <button
             type="button"
             onClick={() => removeTag(tag)}
-            className="text-muted hover:text-foreground ml-0.5 leading-none"
+            className="text-muted-foreground hover:text-foreground ml-0.5 leading-none"
           >
             ×
           </button>
@@ -56,7 +56,7 @@ export function TagInput({ value, onChange }: Props) {
         onKeyDown={handleKey}
         onBlur={addTag}
         placeholder={value.length === 0 ? 'Dodaj tag i naciśnij Enter' : ''}
-        className="bg-transparent outline-none text-sm text-foreground placeholder:text-muted flex-1 min-w-24"
+        className="bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground flex-1 min-w-24"
       />
     </div>
   )

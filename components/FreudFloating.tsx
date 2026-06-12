@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { Brain, X, History, ChevronLeft, Plus, Trash2 } from 'lucide-react'
+import { Brain } from 'lucide-react'
+import { XMarkIcon, ClockIcon, ChevronLeftIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useConversations } from '@/lib/conversations-context'
 import { useEntries } from '@/lib/entries-context'
 import { FreudChat } from '@/components/FreudChat'
+import { Button } from '@/components/ui/button'
 import type { Conversation } from '@/lib/conversations-context'
 
 const EXCLUDED = ['/login', '/freud', '/docs']
@@ -83,18 +85,16 @@ export function FreudFloating() {
           {/* Panel header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/10 shrink-0">
             {showHistory ? (
-              <button
-                onClick={() => setShowHistory(false)}
-                className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" /> Wstecz
-              </button>
+              <Button variant="ghost" size="default" onClick={() => setShowHistory(false)}>
+                <ChevronLeftIcon className="size-4" />
+                Wstecz
+              </Button>
             ) : (
               <div className="flex items-center gap-2">
                 <Brain className="w-4 h-4 text-foreground" />
                 <span className="font-bold text-sm text-foreground">Freud</span>
                 {activeConversation?.title && (
-                  <span className="text-xs text-muted truncate max-w-[140px]">{activeConversation.title}</span>
+                  <span className="text-xs text-muted-foreground truncate max-w-[140px]">{activeConversation.title}</span>
                 )}
               </div>
             )}
@@ -103,24 +103,24 @@ export function FreudFloating() {
                 <>
                   <button
                     onClick={handleNew}
-                    className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-foreground/8 transition-colors"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/8 transition-colors"
                     title="Nowa rozmowa"
                   >
-                    <Plus className="w-4 h-4" />
+                    <PlusIcon className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setShowHistory(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-muted hover:text-foreground hover:bg-foreground/8 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-foreground/8 transition-colors"
                   >
-                    <History className="w-3.5 h-3.5" /> Historia
+                    <ClockIcon className="w-3.5 h-3.5" /> Historia
                   </button>
                 </>
               )}
               <button
                 onClick={() => setOpen(false)}
-                className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-foreground/8 transition-colors"
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/8 transition-colors"
               >
-                <X className="w-4 h-4" />
+                <XMarkIcon className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -145,13 +145,10 @@ export function FreudFloating() {
             ) : (
               <div className="flex flex-col items-center justify-center h-full gap-4 px-6 text-center">
                 <span className="text-5xl">🧠</span>
-                <p className="text-muted text-sm">Kliknij + żeby rozpocząć rozmowę</p>
-                <button
-                  onClick={handleNew}
-                  className="bg-foreground text-background px-5 py-2.5 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity"
-                >
+                <p className="text-muted-foreground text-sm">Kliknij + żeby rozpocząć rozmowę</p>
+                <Button variant="default" size="default" onClick={handleNew}>
                   Nowa rozmowa
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -176,14 +173,14 @@ function ConversationList({
   onDelete: (id: string, e: React.MouseEvent) => void
   onNew: () => void
 }) {
-  if (loading) return <p className="text-muted text-sm px-4 py-6 text-center">Ładowanie…</p>
+  if (loading) return <p className="text-muted-foreground text-sm px-4 py-6 text-center">Ładowanie…</p>
   if (conversations.length === 0) {
     return (
       <div className="px-4 py-8 text-center">
-        <p className="text-muted text-sm mb-3">Brak rozmów</p>
-        <button onClick={onNew} className="text-xs text-foreground border border-foreground/20 rounded-full px-4 py-2 hover:bg-foreground/5 transition-colors">
+        <p className="text-muted-foreground text-sm mb-3">Brak rozmów</p>
+        <Button variant="secondary" size="lg" onClick={onNew}>
           Rozpocznij pierwszą rozmowę
-        </button>
+        </Button>
       </div>
     )
   }
@@ -199,15 +196,15 @@ function ConversationList({
           >
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground truncate">{c.title ?? 'Nowa rozmowa'}</p>
-              <p className="text-xs text-muted">
+              <p className="text-xs text-muted-foreground">
                 {new Date(c.created_at).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })}
               </p>
             </div>
             <button
               onClick={(e) => onDelete(c.id, e)}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted hover:text-red-400 p-1 shrink-0"
+              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive p-1 shrink-0"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <TrashIcon className="w-3.5 h-3.5" />
             </button>
           </div>
         </li>

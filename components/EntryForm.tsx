@@ -4,10 +4,10 @@ import { useState, useEffect, useRef, type FormEvent, type ChangeEvent } from 'r
 import type { Mood, Entry } from '@/lib/types'
 import { MoodSelector } from './MoodSelector'
 import { TagInput } from './TagInput'
-import { Mic, MicOff, Loader2, X } from 'lucide-react'
+import { MicOff } from 'lucide-react'
 import { useVoiceRecorder } from '@/lib/useVoiceRecorder'
 import { Button } from '@/components/ui/button'
-import { ChevronLeftIcon, PhotoIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, PhotoIcon, MicrophoneIcon, ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/lib/auth-context'
 import { cn } from '@/lib/utils'
@@ -129,12 +129,12 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
         onChange={e => setTitle(e.target.value)}
         placeholder="Tytuł wpisu..."
         autoFocus={focusTitle}
-        className="text-2xl font-bold bg-transparent text-foreground placeholder:text-muted outline-none border-b border-foreground/10 pb-3"
+        className="text-2xl font-bold bg-transparent text-foreground placeholder:text-muted-foreground outline-none border-b border-foreground/10 pb-3"
       />
 
       {/* Nastrój */}
       <div>
-        <p className="text-sm text-muted mb-3">Jak się czujesz?</p>
+        <p className="text-sm text-muted-foreground mb-3">Jak się czujesz?</p>
         <MoodSelector value={mood} onChange={setMood} />
       </div>
 
@@ -145,7 +145,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           onChange={e => setContent(e.target.value)}
           placeholder="Co chcesz zapisać dzisiaj..."
           rows={8}
-          className="w-full bg-foreground/5 rounded-2xl p-4 pr-24 text-foreground placeholder:text-muted outline-none resize-none text-base leading-relaxed"
+          className="w-full bg-foreground/5 rounded-2xl p-4 pr-24 text-foreground placeholder:text-muted-foreground outline-none resize-none text-base leading-relaxed"
         />
 
         {/* Pasek fal dźwiękowych podczas nagrywania */}
@@ -168,7 +168,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
         {/* Pasek przetwarzania transkrypcji */}
         {recorderState === 'transcribing' && (
           <div className="absolute bottom-14 right-2 flex items-center gap-1.5">
-            <span className="text-[11px] text-muted">Przetwarzam...</span>
+            <span className="text-[11px] text-muted-foreground">Przetwarzam...</span>
             <div className="flex gap-[3px] items-center">
               {[0, 1, 2].map((i) => (
                 <span
@@ -195,7 +195,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           className="absolute bottom-3 right-12"
         >
           {imageUploading
-            ? <Loader2 size={18} className="animate-spin" />
+            ? <ArrowPathIcon className="size-[18px] animate-spin" />
             : <PhotoIcon className="size-[18px]" />
           }
         </Button>
@@ -227,11 +227,11 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
           )}
         >
           {recorderState === 'transcribing' ? (
-            <Loader2 size={18} className="animate-spin" />
+            <ArrowPathIcon className="size-[18px] animate-spin" />
           ) : recorderState === 'recording' ? (
             <MicOff size={18} />
           ) : (
-            <Mic size={18} />
+            <MicrophoneIcon className="size-[18px]" />
           )}
         </Button>
       </div>
@@ -249,7 +249,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
             onClick={handleImageRemove}
             className="absolute top-2 right-2 p-1 rounded-full bg-background/80 text-foreground hover:bg-background transition-colors"
           >
-            <X size={16} />
+            <XMarkIcon className="size-4" />
           </button>
         </div>
       )}
@@ -267,7 +267,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
 
       {/* Tagi */}
       <div>
-        <p className="text-sm text-muted mb-2">Tagi</p>
+        <p className="text-sm text-muted-foreground mb-2">Tagi</p>
         <TagInput value={tags} onChange={setTags} />
       </div>
 

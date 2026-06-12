@@ -20,7 +20,7 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
   if (!entry) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted">Wpis nie znaleziony</p>
+        <p className="text-muted-foreground">Wpis nie znaleziony</p>
       </main>
     )
   }
@@ -56,7 +56,7 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
         {entry.mood && <span className="text-4xl mt-1 shrink-0">{moodEmoji(entry.mood)}</span>}
       </div>
 
-      <p className="text-sm text-muted mb-8">
+      <p className="text-sm text-muted-foreground mb-8">
         {formatDate(entry.created_at)}
       </p>
 

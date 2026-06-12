@@ -6,7 +6,7 @@ import { useEntries } from '@/lib/entries-context'
 import { useConversations } from '@/lib/conversations-context'
 import type { Entry } from '@/lib/types'
 import type { Message as DBMessage } from '@/lib/conversations-context'
-import { Send, Loader2 } from 'lucide-react'
+import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 import ReactMarkdown from 'react-markdown'
 
 interface Props {
@@ -74,7 +74,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
   if (!historyLoaded) {
     return (
       <div className="flex items-center justify-center h-full">
-        <Loader2 className="w-6 h-6 animate-spin text-muted" />
+        <ArrowPathIcon className="w-6 h-6 animate-spin text-muted-foreground" />
       </div>
     )
   }
@@ -86,7 +86,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
         {visibleMessages.length === 0 && !isLoading && (
-          <div className="flex flex-col items-center justify-center h-full text-center gap-3 text-muted">
+          <div className="flex flex-col items-center justify-center h-full text-center gap-3 text-muted-foreground">
             <span className="text-5xl">🧠</span>
             <p className="font-semibold text-foreground">Cześć, jestem Freud</p>
             <p className="text-sm max-w-xs">Twój asystent terapeutyczny. Napisz coś, a przeanalizuję Twoje wpisy i porozmawiam z Tobą o tym, co czujesz.</p>
@@ -142,7 +142,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
           disabled={isLoading || !input.trim()}
           className="w-10 h-10 bg-foreground text-background rounded-full flex items-center justify-center hover:opacity-80 transition-opacity disabled:opacity-30 shrink-0"
         >
-          <Send className="w-4 h-4" />
+          <PaperAirplaneIcon className="w-4 h-4" />
         </button>
       </form>
     </div>

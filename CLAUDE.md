@@ -75,6 +75,12 @@ npm run start    # uruchom zbudowaną wersję produkcyjną
 
 ## Zasady Projektowe UX/UI
 
+> **Kontrakt designu (allowlista):** pełna, kuratorowana lista tokenów, komponentów i wzorców
+> kompozycji jest w `.claude/skills/generuj-widok/references/` (`tokeny.md`, `komponenty.md`,
+> `wzorce.md`). To **źródło prawdy przy generowaniu/edycji UI** — buduj wyłącznie z tej
+> allowlisty (m.in. tylko Poppins, tylko `@heroicons/react/24/outline`). Do generowania
+> widoków służy skill `generuj-widok`.
+
 ### Źródło prawdy dla tokenów
 
 Wszystkie nazwy zmiennych semantycznych, kolorów, odstępów (spacing) i cieni **MUSZĄ** być sprawdzane i mapowane bezpośrednio z pliku `figma-variables-snapshot.json`. Masz kategoryczny zakaz wymyślania własnych nazw klas spoza tego pliku.

@@ -22,7 +22,7 @@ export function DeleteConfirm({ open, onConfirm, onCancel }: Props) {
       <DialogContent className="rounded-3xl bg-background border-foreground/10 max-w-xs mx-auto">
         <DialogHeader>
           <DialogTitle className="text-foreground font-bold">Usunąć wpis?</DialogTitle>
-          <DialogDescription className="text-muted">
+          <DialogDescription className="text-muted-foreground">
             Tej operacji nie można cofnąć.
           </DialogDescription>
         </DialogHeader>
