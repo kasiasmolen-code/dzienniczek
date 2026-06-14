@@ -109,12 +109,10 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
             variant="ghost"
             size="default"
             onClick={onCancel}
-            className="lg:hidden"
           >
             <ChevronLeftIcon className="size-4" />
             Wstecz
           </Button>
-          <div className="hidden lg:block" />
           <h1 className="text-base font-bold text-foreground">{heading}</h1>
           <Button type="submit" variant="default" size="default">
             Zapisz
