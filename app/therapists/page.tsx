@@ -168,13 +168,13 @@ function TherapistCard({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
           <span className="font-bold text-foreground">{name}</span>
-          <Badge badge={t.badge} />
+          <Badge badge={t.badge} hasAccess={t.hasAccess} />
         </div>
         {description && (
           <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
         )}
         {price && !t.hasAccess && (
-          <p className="text-xs text-muted-foreground mt-1">{price}</p>
+          <p className="text-xl font-semibold text-foreground mt-1">{price}</p>
         )}
       </div>
 
@@ -198,17 +198,13 @@ function TherapistCard({
   )
 }
 
-function Badge({ badge }: { badge: 'free' | 'paid' }) {
+function Badge({ badge, hasAccess }: { badge: 'free' | 'paid'; hasAccess: boolean }) {
+  const base = 'inline-flex items-center px-2 py-0.5 rounded text-xs font-medium'
   if (badge === 'free') {
-    return (
-      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-foreground/10 text-foreground">
-        Darmowy
-      </span>
-    )
+    return <span className={`${base} bg-success/15 text-success`}>Darmowy</span>
   }
-  return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-foreground/20 text-muted-foreground">
-      Płatny
-    </span>
-  )
+  if (hasAccess) {
+    return <span className={`${base} bg-info/15 text-info`}>Opłacony</span>
+  }
+  return <span className={`${base} bg-warning/15 text-warning`}>Płatny</span>
 }
