@@ -220,8 +220,8 @@ function AuthSection() {
 // ─── Endpoint Card ────────────────────────────────────────────────────────────
 
 const METHOD_STYLES = {
-  POST: 'bg-success/15 text-success border border-success/30',
-  GET: 'bg-info/15 text-info border border-info/30',
+  POST: 'bg-success/15 text-success',
+  GET: 'bg-info/15 text-info',
 }
 
 interface EndpointExample {
@@ -246,7 +246,7 @@ function EndpointCard({ endpoint }: { endpoint: EndpointExample }) {
       <button onClick={() => setIsOpen(!isOpen)}
         className="w-full px-5 py-4 flex items-center justify-between hover:bg-foreground/5 transition-colors">
         <div className="flex items-center gap-3 text-left flex-1 min-w-0">
-          <span className={`px-2.5 py-1 rounded-lg font-mono text-xs font-bold shrink-0 ${METHOD_STYLES[endpoint.method]}`}>
+          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium shrink-0 ${METHOD_STYLES[endpoint.method]}`}>
             {endpoint.method}
           </span>
           <div className="flex-1 min-w-0">
@@ -320,7 +320,7 @@ function McpToolCard({ tool }: { tool: McpTool }) {
       <button onClick={() => setIsOpen(!isOpen)}
         className="w-full px-5 py-4 flex items-center justify-between hover:bg-foreground/5 transition-colors">
         <div className="flex items-center gap-3 text-left flex-1 min-w-0">
-          <span className="px-2.5 py-1 rounded-lg font-mono text-xs font-bold shrink-0 bg-tool/15 text-tool border border-tool/30">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium shrink-0 bg-tool/15 text-tool">
             tool
           </span>
           <div className="flex-1 min-w-0">
