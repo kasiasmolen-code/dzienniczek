@@ -13,9 +13,12 @@ interface Props {
   conversationId: string
   activeEntry?: Entry | null
   onTitleGenerated?: (title: string) => void
+  therapistSystemPrompt?: string | null
+  therapistName?: string
+  therapistEmoji?: string
 }
 
-export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Props) {
+export function FreudChat({ conversationId, activeEntry, onTitleGenerated, therapistSystemPrompt, therapistName = 'Freud', therapistEmoji = '{therapistEmoji}' }: Props) {
   const { entries } = useEntries()
   const { getMessages, saveMessage } = useConversations()
   const [historyLoaded, setHistoryLoaded] = useState(false)
@@ -37,6 +40,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
       entries,
       activeEntry: activeEntry ?? null,
       userId: entries[0]?.user_id ?? null,
+      therapistSystemPrompt: therapistSystemPrompt ?? null,
     },
     onFinish: async (message) => {
       const userMessages = messages.filter(m => m.role === 'user')
@@ -87,15 +91,15 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
         {visibleMessages.length === 0 && !isLoading && (
           <div className="flex flex-col items-center justify-center h-full text-center gap-3 text-muted-foreground">
-            <span className="text-5xl">🧠</span>
-            <p className="font-semibold text-foreground">Cześć, jestem Freud</p>
+            <span className="text-5xl">{therapistEmoji}</span>
+            <p className="font-semibold text-foreground">Cześć, jestem {therapistName}</p>
             <p className="text-sm max-w-xs">Twój asystent terapeutyczny. Napisz coś, a przeanalizuję Twoje wpisy i porozmawiam z Tobą o tym, co czujesz.</p>
           </div>
         )}
         {visibleMessages.map(m => (
           <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             {m.role === 'assistant' && (
-              <span className="w-8 h-8 rounded-full bg-foreground/10 flex items-center justify-center text-base shrink-0 mr-2 mt-1">🧠</span>
+              <span className="w-8 h-8 rounded-full bg-foreground/10 flex items-center justify-center text-base shrink-0 mr-2 mt-1">{therapistEmoji}</span>
             )}
             <div className={`max-w-[80%] px-4 py-3 rounded-3xl text-sm leading-relaxed ${
               m.role === 'user'
@@ -108,7 +112,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <span className="w-8 h-8 rounded-full bg-foreground/10 flex items-center justify-center text-base shrink-0 mr-2">🧠</span>
+            <span className="w-8 h-8 rounded-full bg-foreground/10 flex items-center justify-center text-base shrink-0 mr-2">{therapistEmoji}</span>
             <div className="bg-surface text-surface-foreground px-4 py-3 rounded-3xl rounded-bl-sm text-sm">
               <span className="inline-flex gap-1">
                 <span className="animate-bounce" style={{ animationDelay: '0ms' }}>●</span>
@@ -132,7 +136,7 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated }: Pro
               handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)
             }
           }}
-          placeholder="Napisz do Freuda…"
+          placeholder={`Napisz do ${therapistName}…`}
           rows={1}
           className="flex-1 bg-surface text-surface-foreground placeholder:text-surface-foreground/40 rounded-2xl px-4 py-3 text-sm resize-none outline-none focus:ring-2 ring-foreground/20 max-h-32"
           style={{ fieldSizing: 'content' } as React.CSSProperties}

@@ -7,11 +7,12 @@ import type { Entry } from '@/lib/types'
 
 export async function POST(req: Request) {
   try {
-    const { messages, entries, activeEntry, userId } = await req.json() as {
+    const { messages, entries, activeEntry, userId, therapistSystemPrompt } = await req.json() as {
       messages: { role: 'user' | 'assistant'; content: string }[]
       entries: Entry[]
       activeEntry?: Entry | null
       userId?: string | null
+      therapistSystemPrompt?: string | null
     }
 
     // Run hybrid search using the last user message
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const systemPrompt = buildSystemPrompt(entries, activeEntry, relevantEntries)
+    const systemPrompt = buildSystemPrompt(entries, activeEntry, relevantEntries, therapistSystemPrompt)
 
     const result = streamText({
       model: anthropic('claude-sonnet-4-6'),

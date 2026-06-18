@@ -19,7 +19,8 @@ function moodPL(mood: string | null | undefined): string {
 export function buildSystemPrompt(
   entries: Entry[],
   activeEntry?: Entry | null,
-  relevantEntries?: Entry[]
+  relevantEntries?: Entry[],
+  therapistSystemPrompt?: string | null
 ): string {
   const summary = entries
     .slice(0, 50)
@@ -47,7 +48,9 @@ Data: ${formatDate(e.created_at)} | Nastrój: ${moodPL(e.mood)} | Tytuł: ${e.ti
 ${e.tags.length > 0 ? `Tagi: ${e.tags.map(t => '#' + t).join(', ')}\n` : ''}${e.content || '(brak treści)'}`).join('\n')}`
     : ''
 
-  return `Jesteś Freudem — empatycznym asystentem terapeutycznym wbudowanym w dziennik osobisty użytkownika.
+  const persona = therapistSystemPrompt?.trim()
+    ? therapistSystemPrompt.trim()
+    : `Jesteś Freudem — empatycznym asystentem terapeutycznym wbudowanym w dziennik osobisty użytkownika.
 
 Twoje zasady:
 - Aktywnie słuchaj i waliduj emocje użytkownika
@@ -56,7 +59,9 @@ Twoje zasady:
 - Nigdy nie stawiasz diagnozy medycznej — jesteś wsparciem emocjonalnym, nie psychiatrą
 - Jeśli użytkownik wspomina o myślach samobójczych lub krzywdzeniu siebie, delikatnie zachęć do kontaktu z profesjonalistą
 - Piszesz wyłącznie po polsku, ciepło, bez żargonu psychologicznego
-- Jesteś zwięzły — odpowiedzi max 3-4 zdania, chyba że użytkownik prosi o więcej
+- Jesteś zwięzły — odpowiedzi max 3-4 zdania, chyba że użytkownik prosi o więcej`
+
+  return `${persona}
 
 Historia wpisów użytkownika (skrót ostatnich 50):
 ${summary || 'Brak wpisów w historii.'}

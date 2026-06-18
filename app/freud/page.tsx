@@ -5,11 +5,19 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { useConversations } from '@/lib/conversations-context'
 import { useEntries } from '@/lib/entries-context'
+import { supabase } from '@/lib/supabase'
 import { FreudChat } from '@/components/FreudChat'
 import { TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import type { Conversation } from '@/lib/conversations-context'
+import type { Therapist } from '@/lib/types'
+
+const THERAPIST_EMOJI: Record<string, string> = {
+  freud: '🧠',
+  'terapeuta-1': '🌿',
+  psycholozka: '💛',
+}
 
 export default function FreudPage() {
   const router = useRouter()
@@ -18,16 +26,27 @@ export default function FreudPage() {
   const { getEntry } = useEntries()
   const [activeId, setActiveId] = useState<string | null>(null)
   const [showSidebar, setShowSidebar] = useState(false)
+  const [therapist, setTherapist] = useState<Therapist | null>(null)
 
   useEffect(() => {
     if (!authLoading && !user) router.replace('/login')
   }, [user, authLoading, router])
 
-  // Handle ?conv= from entry page
+  // Handle ?conv= and ?therapist= from query params
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const convId = params.get('conv')
     if (convId) setActiveId(convId)
+
+    const therapistSlug = params.get('therapist')
+    if (therapistSlug) {
+      supabase
+        .from('therapists')
+        .select('*')
+        .eq('slug', therapistSlug)
+        .single()
+        .then(({ data }) => { if (data) setTherapist(data as Therapist) })
+    }
   }, [])
 
   if (authLoading || !user) return null
@@ -57,12 +76,12 @@ export default function FreudPage() {
       <div className="lg:hidden flex flex-col h-screen bg-background">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 pt-10 pb-4 border-b border-foreground/10 shrink-0">
-          <Button variant="ghost" size="default" onClick={() => router.push('/')}>
+          <Button variant="ghost" size="default" onClick={() => router.push('/therapists')}>
             <ChevronLeftIcon className="size-4" />
             Wstecz
           </Button>
           <div className="flex-1">
-            <h1 className="text-lg font-black text-foreground">Freud</h1>
+            <h1 className="text-lg font-black text-foreground">{THERAPIST_EMOJI[therapist?.slug ?? 'freud']} {therapist?.name ?? 'Freud'}</h1>
             {activeConversation?.title && (
               <p className="text-xs text-muted-foreground truncate">{activeConversation.title}</p>
             )}
@@ -85,9 +104,12 @@ export default function FreudPage() {
               conversationId={activeId}
               activeEntry={activeEntry}
               onTitleGenerated={(title) => handleTitleGenerated(activeId, title)}
+              therapistSystemPrompt={therapist?.system_prompt}
+              therapistName={therapist?.name ?? 'Freud'}
+              therapistEmoji={THERAPIST_EMOJI[therapist?.slug ?? 'freud'] ?? '🧠'}
             />
           ) : (
-            <EmptyState onNew={handleNew} />
+            <EmptyState onNew={handleNew} therapistName={therapist?.name ?? 'Freud'} therapistEmoji={THERAPIST_EMOJI[therapist?.slug ?? 'freud'] ?? '🧠'} />
           )}
         </div>
 
@@ -117,11 +139,11 @@ export default function FreudPage() {
         <div className="w-[22%] min-w-[220px] max-w-[320px] flex flex-col border-r border-foreground/10 h-full">
           <div className="px-4 pt-6 pb-4 border-b border-foreground/10 flex items-center justify-between shrink-0">
             <div>
-              <Button variant="ghost" size="default" onClick={() => router.push('/')} className="mb-2">
+              <Button variant="ghost" size="default" onClick={() => router.push('/therapists')} className="mb-2">
                 <ChevronLeftIcon className="size-4" />
                 Wstecz
               </Button>
-              <h1 className="text-xl font-black text-foreground">🧠 Freud</h1>
+              <h1 className="text-xl font-black text-foreground">{THERAPIST_EMOJI[therapist?.slug ?? 'freud']} {therapist?.name ?? 'Freud'}</h1>
             </div>
             <button
               onClick={handleNew}
@@ -151,9 +173,12 @@ export default function FreudPage() {
               conversationId={activeId}
               activeEntry={activeEntry}
               onTitleGenerated={(title) => handleTitleGenerated(activeId, title)}
+              therapistSystemPrompt={therapist?.system_prompt}
+              therapistName={therapist?.name ?? 'Freud'}
+              therapistEmoji={THERAPIST_EMOJI[therapist?.slug ?? 'freud'] ?? '🧠'}
             />
           ) : (
-            <EmptyState onNew={handleNew} />
+            <EmptyState onNew={handleNew} therapistName={therapist?.name ?? 'Freud'} therapistEmoji={THERAPIST_EMOJI[therapist?.slug ?? 'freud'] ?? '🧠'} />
           )}
         </div>
       </div>
@@ -218,12 +243,12 @@ function ConversationList({
   )
 }
 
-function EmptyState({ onNew }: { onNew: () => void }) {
+function EmptyState({ onNew, therapistName = 'Freud', therapistEmoji = '🧠' }: { onNew: () => void; therapistName?: string; therapistEmoji?: string }) {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center gap-4 px-8">
-      <span className="text-6xl">🧠</span>
+      <span className="text-6xl">{therapistEmoji}</span>
       <div>
-        <h2 className="text-xl font-black text-foreground mb-2">Cześć, jestem Freud</h2>
+        <h2 className="text-xl font-black text-foreground mb-2">Cześć, jestem {therapistName}</h2>
         <p className="text-muted-foreground text-sm max-w-sm">
           Twój asystent terapeutyczny. Analizuję Twoje wpisy i pomagam zrozumieć emocje oraz wzorce nastroju.
         </p>
