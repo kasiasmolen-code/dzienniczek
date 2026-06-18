@@ -115,11 +115,11 @@ body {
   --surface: oklch(98.5% 0.001 106.423);
   --surface-foreground: oklch(9.8% 0.002 264);
   --destructive-foreground: oklch(0.985 0 0);
-  /* Card accents — light (Tailwind 400) */
-  --card-orange: #FB923C; /* orange/400 */
-  --card-yellow: #FBBF24; /* amber/400 */
-  --card-green:  #4ADE80; /* green/400 */
-  --card-blue:   #38BDF8; /* sky/400 */
+  /* Card accents — light (Tailwind 600) */
+  --card-orange: #EA580C; /* orange/600 */
+  --card-yellow: #D97706; /* amber/600 */
+  --card-green:  #16A34A; /* green/600 */
+  --card-blue:   #0284C7; /* sky/600 */
   /* Status colors — light (Tailwind 600) */
   --status-success: #16A34A; /* green/600 */
   --status-info:    #2563EB; /* blue/600 */
@@ -163,11 +163,11 @@ body {
   --sidebar-ring: #404040;
   --surface: #171717;
   --surface-foreground: #FFFFFF;
-  /* Card accents — dark (Tailwind 600) */
-  --card-orange: #EA580C; /* orange/600 */
-  --card-yellow: #D97706; /* amber/600 */
-  --card-green:  #16A34A; /* green/600 */
-  --card-blue:   #0284C7; /* sky/600 */
+  /* Card accents — dark (Tailwind 400) */
+  --card-orange: #FB923C; /* orange/400 */
+  --card-yellow: #FBBF24; /* amber/400 */
+  --card-green:  #4ADE80; /* green/400 */
+  --card-blue:   #38BDF8; /* sky/400 */
   /* Status colors — dark (Tailwind 400) */
   --status-success: #4ADE80; /* green/400 */
   --status-info:    #60A5FA; /* blue/400 */
