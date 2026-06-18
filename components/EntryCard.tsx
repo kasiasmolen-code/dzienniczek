@@ -7,10 +7,10 @@ import { formatRelative } from '@/lib/utils'
 
 const CARD_STYLES = [
   { bg: 'bg-surface',      text: 'text-surface-foreground', sub: 'text-surface-foreground/60', tag: 'bg-black/10 text-surface-foreground' },
-  { bg: 'bg-card-orange',  text: 'text-white',               sub: 'text-white/70',              tag: 'bg-white/20 text-white' },
-  { bg: 'bg-card-yellow',  text: 'text-surface-foreground',  sub: 'text-surface-foreground/60', tag: 'bg-black/10 text-surface-foreground' },
-  { bg: 'bg-card-green',   text: 'text-white',               sub: 'text-white/70',              tag: 'bg-white/20 text-white' },
-  { bg: 'bg-card-blue',    text: 'text-white',               sub: 'text-white/70',              tag: 'bg-white/20 text-white' },
+  { bg: 'bg-card-orange',  text: 'text-primary-foreground',  sub: 'text-primary-foreground/70', tag: 'bg-primary-foreground/10 text-primary-foreground' },
+  { bg: 'bg-card-yellow',  text: 'text-primary-foreground',  sub: 'text-primary-foreground/70', tag: 'bg-primary-foreground/10 text-primary-foreground' },
+  { bg: 'bg-card-green',   text: 'text-primary-foreground',  sub: 'text-primary-foreground/70', tag: 'bg-primary-foreground/10 text-primary-foreground' },
+  { bg: 'bg-card-blue',    text: 'text-primary-foreground',  sub: 'text-primary-foreground/70', tag: 'bg-primary-foreground/10 text-primary-foreground' },
 ]
 
 interface Props {

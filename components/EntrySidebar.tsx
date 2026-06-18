@@ -8,10 +8,10 @@ const DAY_NAMES = ['ND', 'PN', 'WT', 'ŚR', 'CZ', 'PT', 'SO']
 
 const CARD_STYLES = [
   { bg: 'bg-surface',      text: 'text-surface-foreground', sub: 'text-surface-foreground/60' },
-  { bg: 'bg-card-orange',  text: 'text-white',               sub: 'text-white/70' },
-  { bg: 'bg-card-yellow',  text: 'text-surface-foreground',  sub: 'text-surface-foreground/60' },
-  { bg: 'bg-card-green',   text: 'text-white',               sub: 'text-white/70' },
-  { bg: 'bg-card-blue',    text: 'text-white',               sub: 'text-white/70' },
+  { bg: 'bg-card-orange',  text: 'text-primary-foreground',  sub: 'text-primary-foreground/70' },
+  { bg: 'bg-card-yellow',  text: 'text-primary-foreground',  sub: 'text-primary-foreground/70' },
+  { bg: 'bg-card-green',   text: 'text-primary-foreground',  sub: 'text-primary-foreground/70' },
+  { bg: 'bg-card-blue',    text: 'text-primary-foreground',  sub: 'text-primary-foreground/70' },
 ]
 
 interface Props {
