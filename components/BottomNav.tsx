@@ -19,19 +19,14 @@ export function BottomNav() {
   const pathname = usePathname()
   const { createConversation } = useConversations()
 
-  if (pathname === '/login' || pathname.startsWith('/freud')) return null
+  if (pathname === '/login' || pathname.startsWith('/freud') || pathname.startsWith('/therapists')) return null
 
   const isHome = pathname === '/'
   const isDocs = pathname === '/docs'
   const entryId = getEntryIdFromPath(pathname)
 
-  async function handleFreudPress() {
-    if (entryId) {
-      const convId = await createConversation(entryId)
-      router.push(`/freud?conv=${convId}&entry=${entryId}`)
-    } else {
-      router.push('/freud')
-    }
+  function handleFreudPress() {
+    router.push('/therapists')
   }
 
   return (
