@@ -14,12 +14,13 @@ const THERAPIST_EMOJI: Record<string, string> = {
   psycholozka: '💛',
 }
 
+// Treść (nazwa, opis, zdjęcie) pochodzi z Supabase; cena z Shopify.
 function displayName(t: TherapistWithAccess) {
-  return t.shopifyName ?? t.name
+  return t.name
 }
 
 function displayDescription(t: TherapistWithAccess) {
-  return t.shopifyDescription ?? t.description
+  return t.description
 }
 
 function displayPrice(t: TherapistWithAccess) {
@@ -158,8 +159,8 @@ function TherapistCard({
 
   return (
     <div className="flex items-center gap-4 px-5 py-4 rounded-lg bg-foreground/5 border border-foreground/10">
-      {t.shopifyImageUrl ? (
-        <img src={t.shopifyImageUrl} alt={name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+      {t.image_url ? (
+        <img src={t.image_url} alt={name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
       ) : (
         <span className="text-4xl shrink-0 w-14 h-14 flex items-center justify-center">{emoji}</span>
       )}

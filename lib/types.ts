@@ -17,6 +17,7 @@ export interface Therapist {
   name: string
   slug: string
   description: string | null
+  image_url: string | null
   greeting_prompt: string | null
   system_prompt: string | null
   badge: 'free' | 'paid'

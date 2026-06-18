@@ -17,7 +17,10 @@ export default function AdminTherapistsPage() {
   const [therapists, setTherapists] = useState<Therapist[]>([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState<string | null>(null)
-  const [form, setForm] = useState<{ system_prompt: string; greeting_prompt: string; shopify_product_id: string }>({
+  const [form, setForm] = useState<{ name: string; description: string; image_url: string; system_prompt: string; greeting_prompt: string; shopify_product_id: string }>({
+    name: '',
+    description: '',
+    image_url: '',
     system_prompt: '',
     greeting_prompt: '',
     shopify_product_id: '',
@@ -44,6 +47,9 @@ export default function AdminTherapistsPage() {
   function startEdit(t: Therapist) {
     setEditing(t.id)
     setForm({
+      name: t.name ?? '',
+      description: t.description ?? '',
+      image_url: t.image_url ?? '',
       system_prompt: t.system_prompt ?? '',
       greeting_prompt: t.greeting_prompt ?? '',
       shopify_product_id: t.shopify_product_id ?? '',
@@ -79,7 +85,7 @@ export default function AdminTherapistsPage() {
           </Button>
           <div>
             <h1 className="text-2xl font-black text-foreground">Admin: Terapeuci</h1>
-            <p className="text-sm text-muted-foreground">Zarządzaj promptami AI. Nazwy i opisy edytuj w Shopify.</p>
+            <p className="text-sm text-muted-foreground">Nazwa, opis, zdjęcie i prompty AI w jednym miejscu. Shopify trzyma tylko cenę.</p>
           </div>
         </div>
         <a
@@ -128,7 +134,27 @@ export default function AdminTherapistsPage() {
               {editing === t.id ? (
                 <div className="flex flex-col gap-3">
                   <Field
-                    label="Shopify Product GID"
+                    label="Nazwa (wyświetlana w aplikacji)"
+                    value={form.name}
+                    onChange={v => setForm(f => ({ ...f, name: v }))}
+                    placeholder="np. Terapeuta 1"
+                  />
+                  <Field
+                    label="Opis (pokazywany na karcie)"
+                    value={form.description}
+                    onChange={v => setForm(f => ({ ...f, description: v }))}
+                    multiline
+                    rows={2}
+                  />
+                  <Field
+                    label="URL zdjęcia/awatara (puste = emoji)"
+                    value={form.image_url}
+                    onChange={v => setForm(f => ({ ...f, image_url: v }))}
+                    placeholder="https://…/avatar.png"
+                    mono
+                  />
+                  <Field
+                    label="Shopify Product GID (tylko cena + checkout)"
                     value={form.shopify_product_id}
                     onChange={v => setForm(f => ({ ...f, shopify_product_id: v }))}
                     placeholder="gid://shopify/Product/1234567890"

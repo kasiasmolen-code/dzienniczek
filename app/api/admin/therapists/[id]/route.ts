@@ -6,6 +6,7 @@ const ADMIN_EMAIL = 'katarzynasmolen1@gmail.com'
 const schema = z.object({
   name: z.string().min(1).optional(),
   description: z.string().optional(),
+  image_url: z.string().optional(),
   greeting_prompt: z.string().optional(),
   system_prompt: z.string().optional(),
   shopify_product_id: z.string().optional(),
