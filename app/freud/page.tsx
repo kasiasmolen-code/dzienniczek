@@ -14,9 +14,9 @@ import type { Conversation } from '@/lib/conversations-context'
 import type { Therapist } from '@/lib/types'
 
 const THERAPIST_EMOJI: Record<string, string> = {
-  freud: '🧠',
-  'terapeuta-1': '🌿',
-  psycholozka: '💛',
+  freud: '🧘',
+  'terapeuta-1': '🧙',
+  psycholozka: '🦸',
 }
 
 export default function FreudPage() {

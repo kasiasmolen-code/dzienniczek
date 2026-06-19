@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState, useCallback } from 'react'
+import { Suspense, useEffect, useRef, useState, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { supabase } from '@/lib/supabase'
@@ -9,9 +9,9 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import type { TherapistWithAccess } from '@/lib/types'
 
 const THERAPIST_EMOJI: Record<string, string> = {
-  freud: '🧠',
-  'terapeuta-1': '🌿',
-  psycholozka: '💛',
+  freud: '🧘',
+  'terapeuta-1': '🧙',
+  psycholozka: '🦸',
 }
 
 // Treść (nazwa, opis, zdjęcie) pochodzi z Supabase; cena z Shopify.
@@ -157,8 +157,24 @@ function TherapistCard({
   const description = displayDescription(t)
   const price = displayPrice(t)
 
+  const [expanded, setExpanded] = useState(false)
+  const descRef = useRef<HTMLParagraphElement>(null)
+  const [showToggle, setShowToggle] = useState(false)
+
+  useEffect(() => {
+    function measure() {
+      const el = descRef.current
+      if (el && !expanded) {
+        setShowToggle(el.scrollHeight > el.clientHeight + 1)
+      }
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [description, expanded])
+
   return (
-    <div className="flex items-center gap-4 px-5 py-4 rounded-lg bg-foreground/5 border border-foreground/10">
+    <div className="flex items-start gap-4 px-5 py-4 rounded-lg bg-foreground/5 border border-foreground/10">
       {t.image_url ? (
         <img src={t.image_url} alt={name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
       ) : (
@@ -171,7 +187,21 @@ function TherapistCard({
           <Badge badge={t.badge} hasAccess={t.hasAccess} />
         </div>
         {description && (
-          <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+          <p
+            ref={descRef}
+            className={`text-sm text-muted-foreground ${expanded ? '' : 'line-clamp-2'}`}
+          >
+            {description}
+          </p>
+        )}
+        {showToggle && (
+          <button
+            type="button"
+            onClick={() => setExpanded(v => !v)}
+            className="mt-1 text-sm font-medium text-foreground/80 hover:text-foreground rounded-lg"
+          >
+            {expanded ? 'Zwiń' : 'Czytaj więcej'}
+          </button>
         )}
         {price && !t.hasAccess && (
           <p className="text-xl font-semibold text-foreground mt-1">{price}</p>
