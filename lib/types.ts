@@ -27,6 +27,37 @@ export interface Therapist {
   created_at: string
 }
 
+// ─── Blog (treść z CMS Strapi) ───────────────────────────
+// Pojedynczy węzeł treści rich-text (format "blocks" Strapi).
+export interface BlogBlockChild {
+  type: string
+  text?: string
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  strikethrough?: boolean
+  code?: boolean
+  url?: string
+  children?: BlogBlockChild[]
+}
+
+export interface BlogBlock {
+  type: string
+  level?: number
+  format?: 'ordered' | 'unordered'
+  children?: BlogBlockChild[]
+}
+
+export interface BlogArticle {
+  id: number
+  documentId: string
+  title: string
+  slug: string
+  content: BlogBlock[]
+  coverUrl: string | null
+  publishedAt: string
+}
+
 export interface TherapistWithAccess extends Therapist {
   hasAccess: boolean
   // Dane z Shopify (null jeśli Shopify nie skonfigurowane lub terapeuta darmowy)
