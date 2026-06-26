@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { HomeIcon, BookOpenIcon, ArrowRightOnRectangleIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, BookOpenIcon, ArrowRightOnRectangleIcon, PlusIcon, NewspaperIcon } from '@heroicons/react/24/outline'
 import { useEffect } from 'react'
 import { useAuth } from '@/lib/auth-context'
 import { useEntries } from '@/lib/entries-context'
@@ -89,6 +89,13 @@ export default function HomePage() {
             >
               <HomeIcon className="w-4 h-4 shrink-0" />
               Home
+            </button>
+            <button
+              onClick={() => router.push('/blog')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
+            >
+              <NewspaperIcon className="w-4 h-4 shrink-0" />
+              Blog
             </button>
           </nav>
 
