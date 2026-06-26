@@ -1,11 +1,11 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { HomeIcon, PlusIcon, BookOpenIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, PlusIcon, BookOpenIcon, NewspaperIcon } from '@heroicons/react/24/outline'
 import { Brain } from 'lucide-react'
 import { useConversations } from '@/lib/conversations-context'
 
-const EXCLUDED_PATHS = ['/login', '/freud', '/docs', '/new']
+const EXCLUDED_PATHS = ['/login', '/freud', '/docs', '/new', '/blog']
 
 function getEntryIdFromPath(pathname: string): string | null {
   if (pathname === '/') return null
@@ -23,6 +23,7 @@ export function BottomNav() {
 
   const isHome = pathname === '/'
   const isDocs = pathname === '/docs'
+  const isBlog = pathname === '/blog' || pathname.startsWith('/blog/')
   const entryId = getEntryIdFromPath(pathname)
 
   function handleFreudPress() {
@@ -63,6 +64,18 @@ export function BottomNav() {
           aria-label="Dokumentacja API"
         >
           <BookOpenIcon className="w-6 h-6" />
+        </button>
+
+        <div className="w-px h-5 bg-background/20 mx-1" />
+
+        <button
+          onClick={() => router.push('/blog')}
+          className={`flex items-center justify-center w-14 h-10 rounded-full transition-colors ${
+            isBlog ? 'bg-white/20' : 'text-background/50 hover:text-background/70'
+          } text-background`}
+          aria-label="Blog"
+        >
+          <NewspaperIcon className="w-6 h-6" />
         </button>
       </div>
 
