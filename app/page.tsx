@@ -1,11 +1,11 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { HomeIcon, BookOpenIcon, ArrowRightOnRectangleIcon, PlusIcon, NewspaperIcon } from '@heroicons/react/24/outline'
 import { useEffect } from 'react'
 import { useAuth } from '@/lib/auth-context'
 import { useEntries } from '@/lib/entries-context'
 import { EntryCard } from '@/components/EntryCard'
+import { DesktopSidebar } from '@/components/DesktopSidebar'
 
 export default function HomePage() {
   const router = useRouter()
@@ -65,58 +65,7 @@ export default function HomePage() {
       <div className="hidden lg:flex h-screen bg-background overflow-hidden">
 
         {/* ── Left sidebar ── */}
-        <aside className="w-60 shrink-0 flex flex-col border-r border-foreground/10 h-full px-4 py-6">
-          {/* App name */}
-          <div className="mb-6 px-1">
-            <h1 className="text-lg font-black text-foreground leading-tight">Dzienniczek</h1>
-            <p className="text-muted-foreground text-xs mt-0.5">{countLabel}</p>
-          </div>
-
-          {/* New entry — big bar */}
-          <button
-            onClick={() => router.push('/new')}
-            className="flex items-center justify-center gap-2 w-full py-3 mb-6 bg-foreground text-background rounded-lg text-sm font-semibold hover:opacity-85 transition-opacity"
-          >
-            <PlusIcon className="w-4 h-4" />
-            Nowy wpis
-          </button>
-
-          {/* Nav links */}
-          <nav className="flex flex-col gap-1">
-            <button
-              onClick={() => router.push('/')}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground bg-foreground/8 hover:bg-foreground/10 transition-colors text-left"
-            >
-              <HomeIcon className="w-4 h-4 shrink-0" />
-              Home
-            </button>
-            <button
-              onClick={() => router.push('/blog')}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
-            >
-              <NewspaperIcon className="w-4 h-4 shrink-0" />
-              Blog
-            </button>
-          </nav>
-
-          {/* Bottom section */}
-          <div className="mt-auto flex flex-col gap-1">
-            <button
-              onClick={() => router.push('/docs')}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
-            >
-              <BookOpenIcon className="w-4 h-4 shrink-0" />
-              API Docs
-            </button>
-            <button
-              onClick={signOut}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground/60 hover:bg-foreground/8 hover:text-foreground transition-colors text-left"
-            >
-              <ArrowRightOnRectangleIcon className="w-4 h-4 shrink-0" />
-              Wyloguj
-            </button>
-          </div>
-        </aside>
+        <DesktopSidebar subtitle={countLabel} />
 
         {/* ── Main content — entry cards grid ── */}
         <main className="flex-1 overflow-y-auto p-8">
