@@ -1,4 +1,13 @@
+import { verifyAuth, handleApiError } from '@/lib/api/middleware'
+
 export async function POST(req: Request) {
+  // Tylko zalogowany użytkownik — transkrypcja korzysta z płatnej usługi Groq.
+  try {
+    await verifyAuth(req)
+  } catch (error) {
+    return handleApiError(error)
+  }
+
   const formData = await req.formData()
   const audio = formData.get('audio') as File | null
 

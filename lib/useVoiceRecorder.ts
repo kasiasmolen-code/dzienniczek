@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { supabase } from './supabase'
 
 export type RecorderState = 'idle' | 'recording' | 'transcribing' | 'error'
 
@@ -56,7 +57,12 @@ export function useVoiceRecorder(onTranscript: (text: string) => void) {
         try {
           const form = new FormData()
           form.append('audio', blob, `recording.${ext}`)
-          const res = await fetch('/api/transcribe', { method: 'POST', body: form })
+          const token = (await supabase.auth.getSession()).data.session?.access_token
+          const res = await fetch('/api/transcribe', {
+            method: 'POST',
+            body: form,
+            headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+          })
           const data = await res.json()
 
           if (!res.ok || data.error) {
