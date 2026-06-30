@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { useEntries } from '@/lib/entries-context'
 import { useConversations } from '@/lib/conversations-context'
+import { supabase } from '@/lib/supabase'
 import type { Entry } from '@/lib/types'
 import type { Message as DBMessage } from '@/lib/conversations-context'
 import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
@@ -36,10 +37,17 @@ export function FreudChat({ conversationId, activeEntry, onTitleGenerated, thera
   const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
     api: '/api/chat',
     initialMessages: initialMessages.map(m => ({ id: m.id, role: m.role, content: m.content })),
+    // Dokładamy token zalogowanego użytkownika do każdego żądania (świeży przy każdym wysłaniu).
+    // Serwer ustala tożsamość z tokenu, więc userId nie jest już wysyłane z body.
+    fetch: async (url, options) => {
+      const token = (await supabase.auth.getSession()).data.session?.access_token
+      const headers = new Headers(options?.headers)
+      if (token) headers.set('Authorization', `Bearer ${token}`)
+      return fetch(url, { ...options, headers })
+    },
     body: {
       entries,
       activeEntry: activeEntry ?? null,
-      userId: entries[0]?.user_id ?? null,
       therapistSystemPrompt: therapistSystemPrompt ?? null,
     },
     onFinish: async (message) => {
