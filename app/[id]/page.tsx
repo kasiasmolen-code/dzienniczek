@@ -1,8 +1,9 @@
 'use client'
 
-import { use, useState } from 'react'
+import { use, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useEntries } from '@/lib/entries-context'
+import { getEntryImageUrl } from '@/lib/storage'
 import { moodEmoji } from '@/components/MoodSelector'
 import { DeleteConfirm } from '@/components/DeleteConfirm'
 import { formatDate } from '@/lib/utils'
@@ -14,8 +15,16 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
   const router = useRouter()
   const { getEntry, deleteEntry } = useEntries()
   const [showDelete, setShowDelete] = useState(false)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   const entry = getEntry(id)
+
+  // Podpisany, czasowy link do zdjęcia (ze ścieżki zapisanej w bazie).
+  useEffect(() => {
+    let active = true
+    getEntryImageUrl(entry?.image_url).then(url => { if (active) setImageUrl(url) })
+    return () => { active = false }
+  }, [entry?.image_url])
 
   if (!entry) {
     return (
@@ -66,9 +75,9 @@ export default function EntryDetails({ params }: { params: Promise<{ id: string 
       </p>
 
       {/* Zdjęcie */}
-      {entry.image_url && (
+      {imageUrl && (
         <img
-          src={entry.image_url}
+          src={imageUrl}
           alt="Zdjęcie do wpisu"
           className="w-full rounded-lg mt-6 object-cover max-h-96"
         />

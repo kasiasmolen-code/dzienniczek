@@ -16,7 +16,7 @@ export const createEntrySchema = z.object({
   date: z.string().datetime('Invalid date format').optional(), // ISO8601
   mood: moodEnum,
   tags: z.array(z.string().max(50)).max(10, 'Maximum 10 tags allowed').optional(),
-  image_url: z.string().url().nullable().optional(),
+  image_url: z.string().max(500).nullable().optional(), // ścieżka pliku w buckecie (nie URL)
 })
 
 export type CreateEntryRequest = z.infer<typeof createEntrySchema>
