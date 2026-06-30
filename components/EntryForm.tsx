@@ -8,8 +8,8 @@ import { MicOff } from 'lucide-react'
 import { useVoiceRecorder } from '@/lib/useVoiceRecorder'
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon, PhotoIcon, MicrophoneIcon, ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/lib/auth-context'
+import { uploadEntryImage, getEntryImageUrl, deleteEntryImage } from '@/lib/storage'
 import { cn } from '@/lib/utils'
 
 interface FormData {
@@ -35,12 +35,19 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
   const [content, setContent] = useState(initial?.content ?? '')
   const [mood, setMood] = useState<Mood | null>(initial?.mood ?? null)
   const [tags, setTags] = useState<string[]>(initial?.tags ?? [])
-  const [imageUrl, setImageUrl] = useState<string | null>(initial?.image_url ?? null)
-  const [imagePath, setImagePath] = useState<string | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null) // podpisany link do podglądu
+  const [imagePath, setImagePath] = useState<string | null>(initial?.image_url ?? null) // ścieżka = źródło prawdy
   const [imageUploading, setImageUploading] = useState(false)
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isSavingRef = useRef(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Z zapisanej ścieżki generujemy czasowy, podpisany link do podglądu.
+  useEffect(() => {
+    let active = true
+    getEntryImageUrl(imagePath).then(url => { if (active) setImageUrl(url) })
+    return () => { active = false }
+  }, [imagePath])
 
   useEffect(() => {
     if (!autoSave || !title.trim()) return
@@ -48,12 +55,12 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
     saveTimerRef.current = setTimeout(async () => {
       if (isSavingRef.current) return
       isSavingRef.current = true
-      await onSave({ title, content, mood, tags, image_url: imageUrl })
+      await onSave({ title, content, mood, tags, image_url: imagePath })
       isSavingRef.current = false
     }, 600)
     return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current) }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, content, mood, tags, imageUrl, autoSave])
+  }, [title, content, mood, tags, imagePath, autoSave])
 
   const { state: recorderState, error: recorderError, start, stop, reset } = useVoiceRecorder(
     (text) => setContent(prev => prev ? prev + ' ' + text : text)
@@ -66,29 +73,19 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
     if (file.size > 10 * 1024 * 1024) return
 
     setImageUploading(true)
-    const ext = file.name.split('.').pop()
-    const path = `${user.id}/${Date.now()}.${ext}`
-
-    const { error } = await supabase.storage
-      .from('entry-images')
-      .upload(path, file, { upsert: false })
-
-    if (!error) {
-      const { data: { publicUrl } } = supabase.storage
-        .from('entry-images')
-        .getPublicUrl(path)
-      setImageUrl(publicUrl)
+    try {
+      // Zapisujemy ŚCIEŻKĘ; podgląd (podpisany link) wygeneruje efekt.
+      const path = await uploadEntryImage(user.id, file)
       setImagePath(path)
+    } catch (err) {
+      console.error('[upload zdjęcia]', err)
     }
     setImageUploading(false)
     e.target.value = ''
   }
 
   async function handleImageRemove() {
-    const pathToDelete = imagePath ?? imageUrl?.split('/entry-images/')[1] ?? null
-    if (pathToDelete) {
-      await supabase.storage.from('entry-images').remove([pathToDelete])
-    }
+    await deleteEntryImage(imagePath)
     setImageUrl(null)
     setImagePath(null)
   }
@@ -96,7 +93,7 @@ export function EntryForm({ heading, initial, onSave, onCancel, autoSave, focusT
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!title.trim()) return
-    onSave({ title, content, mood, tags, image_url: imageUrl })
+    onSave({ title, content, mood, tags, image_url: imagePath })
   }
 
   return (
